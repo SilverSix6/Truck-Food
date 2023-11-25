@@ -13,6 +13,27 @@
         android:theme="@style/Theme.TruckFood"
         tools:targetApi="31">
         <activity
+            android:name=".Location.UpdateLocation"
+            android:exported="false" />
+        <activity
+            android:name=".View.VendorProfileView"
+            android:exported="false" />
+        <activity
+            android:name=".Review.WriteReview"
+            android:exported="false" />
+        <activity
+            android:name=".Signup.MainSignupScreen"
+            android:exported="false" />
+        <activity
+            android:name=".Login.MainLoginScreen"
+            android:exported="false" />
+        <activity
+            android:name=".View.VendorListView"
+            android:exported="false" />
+        <activity
+            android:name=".View.VendorMapView"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
