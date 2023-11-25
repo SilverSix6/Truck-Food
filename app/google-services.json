@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "145739306074",
+    "project_id": "truck-food-4245d",
+    "storage_bucket": "truck-food-4245d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145739306074:android:1d416261115158b279f463",
+        "android_client_info": {
+          "package_name": "com.example.truck_food"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyEZmtC6Dppvb_sHRZ5P6GUnD9w8u7HHQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
