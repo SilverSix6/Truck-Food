@@ -13,6 +13,24 @@
         android:theme="@style/Theme.TruckFood"
         tools:targetApi="31">
         <activity
+            android:name=".Signup.CreateAccountVerification"
+            android:exported="false" />
+        <activity
+            android:name=".Signup.CreateMenuItem"
+            android:exported="false" />
+        <activity
+            android:name=".Signup.AddMenuItems"
+            android:exported="false" />
+        <activity
+            android:name=".Signup.ImageUpload"
+            android:exported="false" />
+        <activity
+            android:name=".Signup.CreateVendorAccount"
+            android:exported="false" />
+        <activity
+            android:name=".Signup.CreateAccount"
+            android:exported="false" />
+        <activity
             android:name=".Location.UpdateLocation"
             android:exported="false" />
         <activity
@@ -20,9 +38,6 @@
             android:exported="false" />
         <activity
             android:name=".Review.WriteReview"
-            android:exported="false" />
-        <activity
-            android:name=".Signup.MainSignupScreen"
             android:exported="false" />
         <activity
             android:name=".Login.MainLoginScreen"
