@@ -13,6 +13,12 @@
         android:theme="@style/Theme.TruckFood"
         tools:targetApi="31">
         <activity
+            android:name=".Signup.CreateCustomerAccount"
+            android:exported="false" />
+        <activity
+            android:name=".View.SortVendors"
+            android:exported="false" />
+        <activity
             android:name=".Signup.CreateAccountVerification"
             android:exported="false" />
         <activity

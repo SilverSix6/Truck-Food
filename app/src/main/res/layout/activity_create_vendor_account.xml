@@ -7,7 +7,7 @@
     tools:context=".Signup.CreateVendorAccount">
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/editTextTruckName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -57,15 +57,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
+        android:id="@+id/editTextDescription"
         android:layout_width="216dp"
         android:layout_height="148dp"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="Desription"
+        android:hint="Description"
         android:inputType="textMultiLine"
         android:lines="8"
-        app:layout_constraintStart_toStartOf="@+id/editTextText"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+        app:layout_constraintStart_toStartOf="@+id/editTextTruckName"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTruckName" />
 </androidx.constraintlayout.widget.ConstraintLayout>

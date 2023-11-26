@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="SortOptions">
+        <item>Distance Ascending</item>
+        <item>Distance Descending</item>
+        <item>Top Reviews</item>
+        <item>New to the App</item>
+    </string-array>
+</resources>
