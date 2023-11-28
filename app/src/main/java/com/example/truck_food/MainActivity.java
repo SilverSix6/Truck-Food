@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.truck_food.Database.Database;
+import com.example.truck_food.Database.DatabaseCompleteListener;
 import com.example.truck_food.User.MenuItem;
 import com.example.truck_food.User.Vendor;
 
@@ -26,10 +27,11 @@ public class MainActivity extends AppCompatActivity {
         Vendor vendor = new Vendor("Username","Email","Password","TruckName","BannerImage","Description",menuItems);
         Database.addVendor(vendor);
 
-        vendors = Database.getVendors();
-    }
-
-    public void refresh(View view){
-        ((TextView) findViewById(R.id.textView)).setText(vendors.toString());
+        vendors = Database.getVendors(new DatabaseCompleteListener() {
+            @Override
+            public void databaseComplete() {
+                ((TextView) findViewById(R.id.textView)).setText(vendors.toString());
+            }
+        });
     }
 }

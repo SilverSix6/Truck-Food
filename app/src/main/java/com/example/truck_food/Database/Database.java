@@ -38,7 +38,7 @@ public class Database {
     //
     // Once database is much larger we will need to query only a portion of the database (Based off of city?)
     //
-    public static ArrayList<Vendor> getVendors() {
+    public static ArrayList<Vendor> getVendors(DatabaseCompleteListener listener) {
         ArrayList<Vendor> vendors = new ArrayList<>();
         database.getReference(vendorLocation).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -52,6 +52,7 @@ public class Database {
                     assert vendor != null;
                     Log.d("Firebase", vendor.toString());
                     vendors.add(vendor);
+                    listener.databaseComplete();
                 }
 
             }
