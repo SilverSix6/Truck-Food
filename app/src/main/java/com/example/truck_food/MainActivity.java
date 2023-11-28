@@ -2,12 +2,14 @@ package com.example.truck_food;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.truck_food.Database.Database;
 import com.example.truck_food.Database.DatabaseCompleteListener;
+import com.example.truck_food.Location.TestLocation;
 import com.example.truck_food.User.MenuItem;
 import com.example.truck_food.User.Vendor;
 
@@ -33,5 +35,10 @@ public class MainActivity extends AppCompatActivity {
                 ((TextView) findViewById(R.id.textView)).setText(vendors.toString());
             }
         });
+    }
+
+    public void testMaps(View v){
+        Intent intent = new Intent(this, TestLocation.class);
+        startActivity(intent);
     }
 }
