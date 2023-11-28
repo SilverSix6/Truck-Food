@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Database {
     static FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -23,17 +24,13 @@ public class Database {
     // Add Vendor
     public static void addVendor(Vendor vendor) {
         // Get uuid for new vendor and update value in vendor
-        DatabaseReference newVendorDR = database.getReference(vendorLocation).push();
-        vendor.setUuid(newVendorDR.getKey());
-        newVendorDR.setValue(vendor);
+        database.getReference(vendorLocation).push().setValue(vendor);
     }
 
     // Add Customer
     public static void addCustomer(Customer customer) {
         // Get uuid for new customer and update value in vendor
-        DatabaseReference newCustomerDR = database.getReference(customerLocation).push();
-        customer.setUuid(newCustomerDR.getKey());
-        newCustomerDR.setValue(customer);
+        database.getReference(customerLocation).push().setValue(customer);
     }
 
     //
@@ -50,8 +47,11 @@ public class Database {
                     Log.d("Firebase", "Error getting data from server");
                     return;
                 }
-                for(DataSnapshot vendor: task.getResult().getChildren()){
-                    vendors.add((Vendor) vendor.getValue());
+                for(DataSnapshot vendorSnapshot: task.getResult().getChildren()){
+                    Vendor vendor = vendorSnapshot.getValue(Vendor.class);
+                    assert vendor != null;
+                    Log.d("Firebase", vendor.toString());
+                    vendors.add(vendor);
                 }
 
             }

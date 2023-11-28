@@ -4,7 +4,6 @@ public abstract class User {
     String username;
     String email;
     String password;
-    String uuid;
 
     public User() {
 
@@ -40,11 +39,4 @@ public abstract class User {
         this.password = password;
     }
 
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
 }

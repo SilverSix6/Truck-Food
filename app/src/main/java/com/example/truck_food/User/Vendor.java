@@ -51,4 +51,17 @@ public class Vendor extends User{
     public void setMenu(ArrayList<MenuItem> menu) {
         this.menu = menu;
     }
+
+    @Override
+    public String toString() {
+        return "Vendor{" +
+                "truckName='" + truckName + '\'' +
+                ", bannerImage='" + bannerImage + '\'' +
+                ", description='" + description + '\'' +
+                ", menu=" + menu +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }
