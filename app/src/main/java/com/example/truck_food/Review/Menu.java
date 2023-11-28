@@ -1,8 +1,10 @@
-package com.example.truck_food;
+package com.example.truck_food.Review;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.truck_food.R;
 
 public class Menu extends AppCompatActivity {
 
