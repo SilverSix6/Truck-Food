@@ -47,10 +47,13 @@ public class CreateAccount extends AppCompatActivity {
         } else {
             intent = new Intent(this, CreateCustomerAccount.class);
         }
+        Bundle bundle = new Bundle();
 
-        intent.putExtra("Email", email.getText());
-        intent.putExtra("Username", username.getText());
-        intent.putExtra("Password", password.getText());
+        bundle.putString("Email", String.valueOf(email.getText()));
+        bundle.putString("Username", String.valueOf(username.getText()));
+        bundle.putString("Password", String.valueOf(password.getText()));
+
+        intent.putExtra("Bundle", bundle);
         this.startActivity(intent);
     }
 

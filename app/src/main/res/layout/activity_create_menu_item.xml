@@ -11,6 +11,7 @@
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
+        android:onClick="back"
         android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
@@ -21,6 +22,7 @@
         android:id="@+id/button17"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
+        android:onClick="add"
         android:text="Add"
         app:layout_constraintBottom_toBottomOf="@+id/button16"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +48,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextText3"
+        android:id="@+id/editTextMenuItemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -57,7 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewHeader6" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine2"
+        android:id="@+id/editTextMenuItemDescription"
         android:layout_width="209dp"
         android:layout_height="124dp"
         android:layout_marginTop="20dp"
@@ -65,17 +67,17 @@
         android:gravity="start|top"
         android:hint="Description"
         android:inputType="textMultiLine"
-        app:layout_constraintStart_toStartOf="@+id/editTextText3"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText3" />
+        app:layout_constraintStart_toStartOf="@+id/editTextMenuItemName"
+        app:layout_constraintTop_toBottomOf="@+id/editTextMenuItemName" />
 
     <EditText
-        android:id="@+id/editTextNumberDecimal"
+        android:id="@+id/editTextMenuItemPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Price"
         android:inputType="numberDecimal"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextMultiLine2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine2" />
+        app:layout_constraintStart_toStartOf="@+id/editTextMenuItemDescription"
+        app:layout_constraintTop_toBottomOf="@+id/editTextMenuItemDescription" />
 </androidx.constraintlayout.widget.ConstraintLayout>
