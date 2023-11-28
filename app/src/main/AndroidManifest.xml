@@ -34,7 +34,7 @@
             android:label="@string/title_activity_test_location" />
         <activity
             android:name=".Menu"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Signup.CreateCustomerAccount"
             android:exported="false" />
