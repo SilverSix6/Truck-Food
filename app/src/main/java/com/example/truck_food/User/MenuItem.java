@@ -1,6 +1,10 @@
 package com.example.truck_food.User;
 
-public class MenuItem {
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class MenuItem implements Serializable {
     String name;
     String description;
     Double price;

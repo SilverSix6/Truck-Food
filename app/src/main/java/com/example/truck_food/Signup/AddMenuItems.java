@@ -53,8 +53,10 @@ public class AddMenuItems extends AppCompatActivity {
     public void next(View view) {
         Intent intent = new Intent(this, CreateAccountVerification.class);
 
+
         intent.putExtra("Bundle", accountInfo);
-        intent.putExtra("Menu", menu);
+
+        intent.putExtra("Menu",menu);
 
         this.startActivity(intent);
     }
