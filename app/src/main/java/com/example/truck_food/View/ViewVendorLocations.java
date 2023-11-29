@@ -62,8 +62,7 @@ public class ViewVendorLocations extends FragmentActivity implements OnMapReadyC
         mMap = googleMap;
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
-        Log.d("ayo", "Hello World");
-
+        /* For when we get current Location working
         fusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override
@@ -82,10 +81,13 @@ public class ViewVendorLocations extends FragmentActivity implements OnMapReadyC
                         }
                     }
                 });
-        // Add a marker in Sydney and move the camera
-        //LatLng sydney = new LatLng(-55, 151);
-        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+         */
+
+        // Add a marker Downtown and move the camera
+        LatLng downtown = new LatLng(49.883322, -119.499338);
+        mMap.addMarker(new MarkerOptions().position(downtown).title("City Park"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(downtown, 16));
     }
 
 
