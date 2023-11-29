@@ -10,35 +10,37 @@ import android.widget.TextView;
 import com.example.truck_food.Database.Database;
 import com.example.truck_food.Database.DatabaseCompleteListener;
 import com.example.truck_food.Location.TestLocation;
+import com.example.truck_food.Signup.CreateAccount;
 import com.example.truck_food.User.MenuItem;
 import com.example.truck_food.User.Vendor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    ArrayList<Vendor> vendors;
+    HashMap<String, Vendor> vendors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ArrayList<MenuItem> menuItems = new ArrayList<>();
-        menuItems.add(new MenuItem("MenuItem","Description",10.0));
-        Vendor vendor = new Vendor("Username","Email","Password","TruckName","BannerImage","Description",menuItems);
-        Database.addVendor(vendor);
-
         vendors = Database.getVendors(new DatabaseCompleteListener() {
             @Override
             public void databaseComplete() {
-                ((TextView) findViewById(R.id.textView)).setText(vendors.toString());
+                ((TextView) findViewById(R.id.menuItemList)).setText(vendors.toString());
             }
         });
     }
 
     public void testMaps(View v){
         Intent intent = new Intent(this, TestLocation.class);
+        startActivity(intent);
+    }
+
+    public void testSignUp(View view) {
+        Intent intent = new Intent(this, CreateAccount.class);
         startActivity(intent);
     }
 }

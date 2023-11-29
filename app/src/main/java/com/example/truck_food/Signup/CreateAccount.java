@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -34,14 +35,17 @@ public class CreateAccount extends AppCompatActivity {
 
     public void signup(View view) {
         // Check email format
+        /*
         Scanner scanner = new Scanner((Readable) email.getText());
         if (scanner.hasNext("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
             Toast.makeText(this, "Please enter a valid email address.", Toast.LENGTH_LONG).show();
             return;
         }
+         */
 
         // Check if creating vendor account or consumer account
         Intent intent;
+        Log.d("SignUp", String.valueOf(isVendor.isChecked()));
         if (isVendor.isChecked()) {
             intent = new Intent(this, CreateVendorAccount.class);
         } else {

@@ -1,6 +1,9 @@
 package com.example.truck_food.User;
 
+import android.os.Parcel;
 import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
 
 import java.io.Serializable;
 
@@ -50,4 +53,5 @@ public class MenuItem implements Serializable {
                 ", price=" + price +
                 '}';
     }
+
 }

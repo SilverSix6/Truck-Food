@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:onClick="next"
     tools:context=".Signup.AddMenuItems">
 
     <Button
@@ -11,6 +12,7 @@
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
+        android:onClick="back"
         android:text="Back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
@@ -28,6 +30,7 @@
         android:id="@+id/button13"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
+        android:onClick="next"
         android:text="Skip"
         app:layout_constraintBottom_toBottomOf="@+id/button12"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,13 +53,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
+        android:onClick="addMenuItem"
         android:text="Add"
         app:layout_constraintBottom_toTopOf="@+id/button12"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/menuItemList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

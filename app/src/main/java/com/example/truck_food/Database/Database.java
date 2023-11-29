@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class Database {
@@ -38,8 +39,8 @@ public class Database {
     //
     // Once database is much larger we will need to query only a portion of the database (Based off of city?)
     //
-    public static ArrayList<Vendor> getVendors(DatabaseCompleteListener listener) {
-        ArrayList<Vendor> vendors = new ArrayList<>();
+    public static HashMap<String, Vendor> getVendors(DatabaseCompleteListener listener) {
+        HashMap<String, Vendor> vendors = new HashMap<>();
         database.getReference(vendorLocation).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -48,10 +49,7 @@ public class Database {
                     return;
                 }
                 for(DataSnapshot vendorSnapshot: task.getResult().getChildren()){
-                    Vendor vendor = vendorSnapshot.getValue(Vendor.class);
-                    assert vendor != null;
-                    Log.d("Firebase", vendor.toString());
-                    vendors.add(vendor);
+                    vendors.put(task.getResult().getKey(),vendorSnapshot.getValue(Vendor.class));
                     listener.databaseComplete();
                 }
 
@@ -66,8 +64,8 @@ public class Database {
     //
     // Not super useful for out tasks but added anyways if we want to add more features
     //
-    public ArrayList<Customer> getCustomers() {
-        ArrayList<Customer> customers = new ArrayList<>();
+    public HashMap<String, Customer> getCustomers(DatabaseCompleteListener listener) {
+        HashMap<String, Customer> customers = new HashMap<>();
         database.getReference(customerLocation).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -76,7 +74,8 @@ public class Database {
                     return;
                 }
                 for(DataSnapshot customer: task.getResult().getChildren()){
-                    customers.add((Customer) customer.getValue());
+                    customers.put(task.getResult().getKey() , (Customer) customer.getValue());
+                    listener.databaseComplete();
                 }
             }
         });
