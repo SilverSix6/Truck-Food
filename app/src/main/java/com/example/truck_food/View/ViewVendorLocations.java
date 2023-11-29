@@ -55,6 +55,7 @@ public class ViewVendorLocations extends FragmentActivity implements OnMapReadyC
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
     @SuppressLint("MissingPermission")
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -70,13 +71,13 @@ public class ViewVendorLocations extends FragmentActivity implements OnMapReadyC
                         // Got last known location. In some rare situations this can be null.
                         if (location != null) {
                             // Logic to handle location object
-                            Log.d("myTag",location.toString());
+                            Log.d("myTag", location.toString());
                             LatLng currentLoc = new LatLng(location.getLatitude(), location.getLongitude());
 
                             System.out.println(location.getLatitude());
                             mMap.addMarker(new MarkerOptions().position(currentLoc).title("Marker in Sydney"));
                             mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLoc));
-                        }else{
+                        } else {
                             Log.d("LocationNull", "Location is null");
                         }
                     }

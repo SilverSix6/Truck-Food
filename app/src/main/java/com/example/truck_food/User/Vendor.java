@@ -7,6 +7,8 @@ public class Vendor extends User{
     String bannerImage;
     String description;
     ArrayList<MenuItem> menu;
+    double latitude;
+    double longitude;
 
     public Vendor(){
         super();
@@ -18,6 +20,18 @@ public class Vendor extends User{
         this.bannerImage = bannerImage;
         this.description = description;
         this.menu = menu;
+        latitude = 0;
+        longitude = 0;
+    }
+
+    public Vendor(String username, String email, String password, String truckName, String bannerImage, String description, ArrayList<MenuItem> menu, double latitude, double longitude) {
+        super(username, email, password);
+        this.truckName = truckName;
+        this.bannerImage = bannerImage;
+        this.description = description;
+        this.menu = menu;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getTruckName() {
@@ -50,6 +64,22 @@ public class Vendor extends User{
 
     public void setMenu(ArrayList<MenuItem> menu) {
         this.menu = menu;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     @Override
