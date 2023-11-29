@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.truck_food.R;
 import com.example.truck_food.User.MenuItem;
@@ -27,6 +28,12 @@ public class CreateMenuItem extends AppCompatActivity {
     }
 
     public void add(View view) {
+        // Make sure all fields are non empty
+        if(itemName.getText() == null || itemDescription.getText() == null || itemPrice.getText() == null) {
+            Toast.makeText(this,"All fields must be filled!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         Intent intent = new Intent();
         intent.putExtra("data", new MenuItem(String.valueOf(itemName.getText()), String.valueOf(itemDescription.getText()), Double.valueOf(String.valueOf(itemPrice.getText()))));
         setResult(RESULT_OK, intent);

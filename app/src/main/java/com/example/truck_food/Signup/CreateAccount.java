@@ -34,6 +34,13 @@ public class CreateAccount extends AppCompatActivity {
     }
 
     public void signup(View view) {
+        //Check Empty Fields
+        if (email.getText() == null || username.getText() == null || password.getText() == null || isVendor.getText() == null){
+            Toast.makeText(this,"All fields must be filled!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+
         // Check email format
         /*
         Scanner scanner = new Scanner((Readable) email.getText());

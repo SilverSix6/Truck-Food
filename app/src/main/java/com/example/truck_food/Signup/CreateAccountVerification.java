@@ -9,7 +9,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.truck_food.Database.Database;
+import com.example.truck_food.Login.MainLoginScreen;
 import com.example.truck_food.R;
+import com.example.truck_food.User.Customer;
 import com.example.truck_food.User.MenuItem;
 import com.example.truck_food.User.Vendor;
 import com.example.truck_food.View.VendorListView;
@@ -17,6 +19,7 @@ import com.example.truck_food.View.VendorListView;
 import org.w3c.dom.Text;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -52,51 +55,64 @@ public class CreateAccountVerification extends AppCompatActivity {
         stringBuilder.append(accountInformation.getString("Email"));
         stringBuilder.append('\n');
         stringBuilder.append("Password: ");
-        stringBuilder.append(accountInformation.getString("Password"));
-        stringBuilder.append('\n');
-        stringBuilder.append("Truck Name: ");
-        stringBuilder.append(accountInformation.getString("Truck Name"));
-        stringBuilder.append('\n');
-        stringBuilder.append("Banner Image: ");
-        stringBuilder.append(accountInformation.getString("ImageURL"));
-        stringBuilder.append('\n');
-        stringBuilder.append("Description: ");
-        stringBuilder.append(accountInformation.getString("Description"));
-        stringBuilder.append('\n');
-        stringBuilder.append("Menu: ");
-        if(menu != null){
-            for (MenuItem item: menu) {
-                stringBuilder.append("\nItem Name: " + item.getName() + " Item Description: " + item.getDescription() + " Item Price: " + item.getPrice());
-            }
-
+        for (int i = 0; i < Objects.requireNonNull(accountInformation.getString("Email")).length(); i++){
+            stringBuilder.append('*');
         }
+        stringBuilder.append('\n');
+
+        // Vendor specific stuff
+        if (accountInformation.getString("Truck Name") != null) {
+            stringBuilder.append("Truck Name: ");
+            stringBuilder.append(accountInformation.getString("Truck Name"));
+            stringBuilder.append('\n');
+            stringBuilder.append("Banner Image: ");
+            stringBuilder.append(accountInformation.getString("ImageURL"));
+            stringBuilder.append('\n');
+            stringBuilder.append("Description: ");
+            stringBuilder.append(accountInformation.getString("Description"));
+            stringBuilder.append('\n');
+            stringBuilder.append("Menu: ");
+            if(menu != null){
+                NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+                for (MenuItem item: menu) {
+                    stringBuilder.append("\n").append(item.getName()).append(": ").append(item.getDescription()).append("\n\tPrice: ").append(currencyFormat.format(item.getPrice()));
+                }
+            }
+        }
+
 
         textView.setText(stringBuilder.toString());
     }
 
     @SuppressWarnings("unchecked")
     public void next(View view) {
-
-        if (menu != null){
-            Database.addVendor(new Vendor(accountInformation.getString("Username"),
-                    accountInformation.getString("Email"),
-                    accountInformation.getString("Password"),
-                    accountInformation.getString("Truck Name"),
-                    accountInformation.getString("ImageURL"),
-                    accountInformation.getString("Description"),
-                    menu));
-            //noinspection deprecation
+        // Determine if creating a vendor or a customer
+        // Truck name is always non null if creating a vendor
+        if (accountInformation.getString("Truck Name") != null) {
+            if (menu != null){
+                Database.addVendor(new Vendor(accountInformation.getString("Username"),
+                        accountInformation.getString("Email"),
+                        accountInformation.getString("Password"),
+                        accountInformation.getString("Truck Name"),
+                        accountInformation.getString("ImageURL"),
+                        accountInformation.getString("Description"),
+                        menu));
+            } else {
+                Database.addVendor(new Vendor(accountInformation.getString("Username"),
+                        accountInformation.getString("Email"),
+                        accountInformation.getString("Password"),
+                        accountInformation.getString("Truck Name"),
+                        accountInformation.getString("ImageURL"),
+                        accountInformation.getString("Description"),
+                        null));
+            }
         } else {
-            Database.addVendor(new Vendor(accountInformation.getString("Username"),
+            Database.addCustomer(new Customer(accountInformation.getString("Username"),
                     accountInformation.getString("Email"),
-                    accountInformation.getString("Password"),
-                    accountInformation.getString("Truck Name"),
-                    accountInformation.getString("Email"),
-                    accountInformation.getString("Email"),
-                    null));
+                    accountInformation.getString("Password")));
         }
 
-        Intent intent = new Intent(this, VendorListView.class);
+        Intent intent = new Intent(this, MainLoginScreen.class);
         finishAffinity();
         this.startActivity(intent);
     }

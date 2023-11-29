@@ -27,7 +27,7 @@
         app:layout_constraintGuide_begin="206dp" />
 
     <Button
-        android:id="@+id/button13"
+        android:id="@+id/skipButton"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:onClick="next"
@@ -67,4 +67,22 @@
         android:text="No Items "
         app:layout_constraintStart_toStartOf="@+id/textViewHeader4"
         app:layout_constraintTop_toBottomOf="@+id/textViewHeader4" />
+
+    <ScrollView
+        android:id="@+id/addItemsScrollView"
+        android:layout_width="342dp"
+        android:layout_height="497dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/button11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewHeader4">
+
+        <LinearLayout
+            android:id="@+id/AddItemsLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.truck_food.R;
 
@@ -26,6 +27,12 @@ public class CreateVendorAccount extends AppCompatActivity {
     }
 
     public void next(View view) {
+        // Make sure all fields are non empty
+        if (truckName.getText() == null || description.getText() == null ) {
+            Toast.makeText(this,"All fields must be filled!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         Intent intent = new Intent(this, ImageUpload.class);
 
         accountData.putString("Truck Name", String.valueOf(truckName.getText()));

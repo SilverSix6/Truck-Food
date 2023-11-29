@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.truck_food.Database.Database;
 import com.example.truck_food.Database.DatabaseCompleteListener;
 import com.example.truck_food.Location.TestLocation;
+import com.example.truck_food.Login.MainLoginScreen;
 import com.example.truck_food.Signup.CreateAccount;
 import com.example.truck_food.User.MenuItem;
 import com.example.truck_food.User.Vendor;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testSignUp(View view) {
-        Intent intent = new Intent(this, CreateAccount.class);
+        Intent intent = new Intent(this, MainLoginScreen.class);
         startActivity(intent);
     }
 
