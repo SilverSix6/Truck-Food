@@ -3,6 +3,8 @@ package com.example.truck_food.View;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.truck_food.Database.Database;
+import com.example.truck_food.Database.DatabaseCompleteListener;
 import com.example.truck_food.R;
 
 import android.Manifest;
@@ -12,6 +14,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.truck_food.User.Vendor;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,10 +26,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.truck_food.databinding.ActivityViewVendorLocationsBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.util.HashMap;
+
 public class ViewVendorLocations extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private ActivityViewVendorLocationsBinding binding;
+    HashMap<String, Vendor> vendors;
 
     private FusedLocationProviderClient fusedLocationClient;
 
@@ -84,10 +90,24 @@ public class ViewVendorLocations extends FragmentActivity implements OnMapReadyC
 
          */
 
-        // Add a marker Downtown and move the camera
-        LatLng downtown = new LatLng(49.883322, -119.499338);
-        mMap.addMarker(new MarkerOptions().position(downtown).title("City Park"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(downtown, 16));
+            vendors = Database.getVendors(new DatabaseCompleteListener() {
+                @Override
+                public void databaseComplete() {
+                    addMarkers();
+                }
+            });
+        }
+
+
+
+    public void addMarkers(){
+        for (Vendor vendor: vendors.values()){
+            double latitude = vendor.getLatitude();
+            double longitude = vendor.getLongitude();
+            String truckName = vendor.getTruckName();
+            LatLng downtown = new LatLng(latitude, longitude);
+            mMap.addMarker(new MarkerOptions().position(downtown).title(truckName));
+        }
     }
 
 
