@@ -72,8 +72,8 @@ public class Database {
                     Log.d("Firebase", "Error getting data from server");
                     return;
                 }
-                for(DataSnapshot customer: task.getResult().getChildren()){
-                    customers.put(task.getResult().getKey() , (Customer) customer.getValue());
+                for(DataSnapshot customerSnapshot: task.getResult().getChildren()){
+                    customers.put(task.getResult().getKey(), customerSnapshot.getValue(Customer.class));
                     listener.databaseComplete();
                 }
             }
