@@ -48,7 +48,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/usernametv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
@@ -59,14 +59,14 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewHeader8" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/passwordtv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        app:layout_constraintStart_toStartOf="@+id/editTextText"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+        app:layout_constraintStart_toStartOf="@+id/usernametv"
+        app:layout_constraintTop_toBottomOf="@+id/usernametv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

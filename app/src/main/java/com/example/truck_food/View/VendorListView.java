@@ -1,5 +1,9 @@
 package com.example.truck_food.View;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -21,7 +25,7 @@ import java.util.HashMap;
 
 public class VendorListView extends AppCompatActivity {
 
-    HashMap<String, Vendor> vendors;
+    HashMap<String,Vendor> vendors;
     LinearLayout scrollView;
 
     @Override
@@ -77,7 +81,25 @@ public class VendorListView extends AppCompatActivity {
     public void sort(View view) {
         Intent intent = new Intent(this, SortVendors.class);
 
-        this.startActivity(intent);
+        sortResultLauncher.launch(intent);
+    }
+
+    ActivityResultLauncher<Intent> sortResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    Bundle bundle = result.getData().getExtras();
+                    assert bundle != null;
+                    // Perform sort
+                    sortVendors(bundle.getString("Search", ""), bundle.getString("Options", ""), bundle.getString("Max Distance", String.valueOf(-1)), bundle.getBoolean("Favorites", false));
+
+                    // Update Screen
+                    updateList();
+                }
+            });
+
+    public void sortVendors(String search, String orderType, String distance, boolean favorites) {
+
     }
 
     public void logout(View view) {

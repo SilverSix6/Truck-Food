@@ -1,5 +1,7 @@
 package com.example.truck_food.User;
 
+import com.example.truck_food.Review.Review;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -8,6 +10,7 @@ public class Vendor extends User implements Serializable {
     String bannerImage;
     String description;
     ArrayList<MenuItem> menu;
+    ArrayList<Review> reviews;
     double latitude;
     double longitude;
 
@@ -23,6 +26,7 @@ public class Vendor extends User implements Serializable {
         this.menu = menu;
         latitude = 0;
         longitude = 0;
+        reviews = null;
     }
 
     public Vendor(String username, String email, String password, String truckName, String bannerImage, String description, ArrayList<MenuItem> menu, double latitude, double longitude) {
@@ -33,6 +37,7 @@ public class Vendor extends User implements Serializable {
         this.menu = menu;
         this.latitude = latitude;
         this.longitude = longitude;
+        reviews = null;
     }
 
     public String getTruckName() {
@@ -81,6 +86,22 @@ public class Vendor extends User implements Serializable {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public ArrayList<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(ArrayList<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public void addReview(Review review) {
+        reviews.add(review);
+    }
+
+    public void removeReview(Review review) {
+        reviews.remove(review);
     }
 
     @Override

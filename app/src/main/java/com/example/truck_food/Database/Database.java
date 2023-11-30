@@ -19,7 +19,7 @@ public class Database {
 
     final static String CUSTOMER_LOCATION = "Firebase/Data/Customer";
     final static String VENDOR_LOCATION = "Firebase/Data/Vendor";
-    final static String REVIEW_LOCATION = "Firebase/Data/Review";
+
 
     // Add Vendor
     public static void addVendor(Vendor vendor) {
@@ -31,12 +31,6 @@ public class Database {
     public static void addCustomer(Customer customer) {
         // Get uuid for new customer and update value in vendor
         database.getReference(CUSTOMER_LOCATION).push().setValue(customer);
-    }
-
-    // Add Customer
-    public static void addReview(Review review) {
-        // Get uuid for new customer and update value in vendor
-        database.getReference(REVIEW_LOCATION).push().setValue(review);
     }
 
     //
@@ -69,7 +63,7 @@ public class Database {
     //
     // Not super useful for out tasks but added anyways if we want to add more features
     //
-    public HashMap<String, Customer> getCustomers(DatabaseCompleteListener listener) {
+    public static HashMap<String, Customer> getCustomers(DatabaseCompleteListener listener) {
         HashMap<String, Customer> customers = new HashMap<>();
         database.getReference(CUSTOMER_LOCATION).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -78,33 +72,14 @@ public class Database {
                     Log.d("Firebase", "Error getting data from server");
                     return;
                 }
-                for(DataSnapshot customer: task.getResult().getChildren()){
-                    customers.put(task.getResult().getKey() , (Customer) customer.getValue());
+                for(DataSnapshot customerSnapshot: task.getResult().getChildren()){
+                    customers.put(task.getResult().getKey(), customerSnapshot.getValue(Customer.class));
                     listener.databaseComplete();
                 }
             }
         });
 
         return customers;
-    }
-
-    public HashMap<String, Review> getReviews(DatabaseCompleteListener listener) {
-        HashMap<String, Review> reviews = new HashMap<>();
-        database.getReference(REVIEW_LOCATION).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(!task.isSuccessful()){
-                    Log.d("Firebase", "Error getting data from server");
-                    return;
-                }
-                for(DataSnapshot customer: task.getResult().getChildren()){
-                    reviews.put(task.getResult().getKey() , (Review) customer.getValue());
-                    listener.databaseComplete();
-                }
-            }
-        });
-
-        return reviews;
     }
 
     public Customer getCustomer(String uid, DatabaseCompleteListener listener){
