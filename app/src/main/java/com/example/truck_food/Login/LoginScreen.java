@@ -14,6 +14,7 @@ import com.example.truck_food.Database.DatabaseCompleteListener;
 import com.example.truck_food.R;
 import com.example.truck_food.User.Customer;
 import com.example.truck_food.User.Vendor;
+import com.example.truck_food.View.VendorAdminPage;
 import com.example.truck_food.View.VendorListView;
 import com.example.truck_food.View.ViewVendorLocations;
 
@@ -26,8 +27,7 @@ public class LoginScreen extends AppCompatActivity {
 
     HashMap<String, Vendor> vendors;
     HashMap<String, Customer> customers;
-    boolean isVendor;
-    String loginKey = "";
+
     String EnteredUsername;
     String EnteredPassword;
 
@@ -44,36 +44,46 @@ public class LoginScreen extends AppCompatActivity {
         TextView passwordtv = findViewById(R.id.passwordtv);
         EnteredPassword = passwordtv.getText().toString();
 
-        boolean validLogin = validateLogin();
+        validateLogin();
+    }
 
-        if(validLogin){
+    public void validateLogin(){
 
-            Intent intent;
-            if(isVendor){//Open Main Vendor Screen
-                intent = new Intent(this, VendorListView.class);
+        customers = Database.getCustomers(new DatabaseCompleteListener() {
+            @Override
+            public void databaseComplete() {
+                boolean found = false;
+
+                for(Map.Entry<String, Customer> entry : customers.entrySet()) {
+                    String key = entry.getKey();
+                    Customer customer = entry.getValue();
+
+                    String username = customer.getUsername();
+                    String password = customer.getPassword();
+                    if(username.equals(EnteredUsername)  && password.equals(EnteredPassword)){
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (found) {
+                    // Is a Customer
+                    loginCustomer();
+                } else {
+                    Log.d("Customer", "Not a customer");
+                    // Check if they are a vendor
+                    validateLoginVendor();
+                }
             }
-            else{//Open Main Customer Screen, change to correct class at some point
-                intent = new Intent(this, VendorListView.class);
-            }
-            intent.putExtra("loggedInUserKey", loginKey);
-            this.startActivity(intent);
-
-        }else{ //User/pass is invalid
-            Log.d("Username", EnteredUsername);
-            Log.d("Password", EnteredPassword);
-            Log.d("Key", loginKey);
-            Toast toast = Toast.makeText(this, "Please enter valid login", Toast.LENGTH_SHORT);
-            toast.show();
-        }
+        });
 
     }
 
-    public boolean validateLogin(){
-
+    public void validateLoginVendor() {
         vendors = Database.getVendors(new DatabaseCompleteListener() {
             @Override
             public void databaseComplete() {
-
+                boolean found = false;
                 //For each vendor, check if matches user/pass
                 //If yes, save that key for later
                 for(Map.Entry<String, Vendor> entry : vendors.entrySet()) {
@@ -83,44 +93,36 @@ public class LoginScreen extends AppCompatActivity {
                     String username = vendor.getUsername();
                     String password = vendor.getPassword();
                     if(username.equals(EnteredUsername)  && password.equals(EnteredPassword)){
-                        loginKey = key;
-                        isVendor = true;
-                        return;
+                        found = true;
+                        break;
                     }
                 }
 
-            }
-        });
-
-
-
-
-        //Checking if the login is a customer, is crashing the rn tho so leave for now
-        if(loginKey.length() > 0){
-            return true;
-        }
-        customers = Database.getCustomers(new DatabaseCompleteListener() {
-            @Override
-            public void databaseComplete() {
-                for(Map.Entry<String, Customer> entry : customers.entrySet()) {
-                    String key = entry.getKey();
-                    Customer customer = entry.getValue();
-
-                    String username = customer.getUsername();
-                    String password = customer.getPassword();
-                    if(username.equals(EnteredUsername)  && password.equals(EnteredPassword)){
-                        loginKey = key;
-                        isVendor = false;
-                        return;
-                    }
+                if(found) {
+                    // Is a vendor
+                    loginVendor();
+                } else {
+                    // Not a vendor
+                    Log.d("Vendor", "Not a vendor");
+                    invalidLogin();
                 }
             }
         });
-
-        //If a login match was found
-        return(loginKey.length() > 0);
     }
 
+    public void invalidLogin(){
+        Toast.makeText( this, "Invalid Username or Password", Toast.LENGTH_LONG).show();
+    }
+
+    public void loginCustomer(){
+        Intent intent = new Intent(this, VendorListView.class);
+        this.startActivity(intent);
+    }
+
+    public void loginVendor(){
+        Intent intent = new Intent(this, VendorAdminPage.class);
+        this.startActivity(intent);
+    }
 
 
     public void back(View view) {
