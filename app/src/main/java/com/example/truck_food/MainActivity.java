@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.truck_food.Database.Database;
 import com.example.truck_food.Database.DatabaseCompleteListener;
 import com.example.truck_food.Location.TestLocation;
+import com.example.truck_food.Location.UpdateLocation;
 import com.example.truck_food.Login.MainLoginScreen;
 import com.example.truck_food.User.Vendor;
 import com.example.truck_food.View.ViewVendorLocations;
@@ -40,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void testTask1(View v){
         Intent intent = new Intent(this, ViewVendorLocations.class);
+        startActivity(intent);
+    }
+
+    public void testTask5(View v){
+        Intent intent = new Intent(this, UpdateLocation.class);
         startActivity(intent);
     }
 }
