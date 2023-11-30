@@ -1,8 +1,9 @@
 package com.example.truck_food.User;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Vendor extends User{
+public class Vendor extends User implements Serializable {
     String truckName;
     String bannerImage;
     String description;

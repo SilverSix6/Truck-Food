@@ -11,6 +11,7 @@
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:onClick="sort"
         android:text="Sort"
         app:layout_constraintStart_toStartOf="@+id/scrollView2"
         app:layout_constraintTop_toTopOf="parent" />
@@ -19,6 +20,7 @@
         android:id="@+id/button19"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
+        android:onClick="logout"
         android:text="Logout"
         app:layout_constraintEnd_toEndOf="@+id/scrollView2"
         app:layout_constraintTop_toTopOf="@+id/button18" />
@@ -28,6 +30,7 @@
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:onClick="mapView"
         android:text="Map View"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/scrollView2" />
@@ -37,6 +40,7 @@
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:onClick="favorites"
         android:text="Favorites"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/scrollView2" />
@@ -50,15 +54,10 @@
         app:layout_constraintTop_toBottomOf="@+id/button18">
 
         <LinearLayout
+            android:id="@+id/scrollLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Temp" />
-        </LinearLayout>
+            android:orientation="vertical"/>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
