@@ -11,6 +11,7 @@
         android:layout_width="162dp"
         android:layout_height="65dp"
         android:layout_marginBottom="108dp"
+        android:onClick="currentLocation"
         android:text="Use Current"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,6 +24,7 @@
         android:layout_height="65dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="36dp"
+        android:onClick="mainMenu"
         android:text="Confirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
