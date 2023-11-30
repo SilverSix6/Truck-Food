@@ -63,7 +63,7 @@ public class Database {
     //
     // Not super useful for out tasks but added anyways if we want to add more features
     //
-    public HashMap<String, Customer> getCustomers(DatabaseCompleteListener listener) {
+    public static HashMap<String, Customer> getCustomers(DatabaseCompleteListener listener) {
         HashMap<String, Customer> customers = new HashMap<>();
         database.getReference(CUSTOMER_LOCATION).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
