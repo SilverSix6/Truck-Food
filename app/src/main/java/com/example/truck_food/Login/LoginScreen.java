@@ -13,6 +13,7 @@ import com.example.truck_food.Database.Database;
 import com.example.truck_food.Database.DatabaseCompleteListener;
 import com.example.truck_food.R;
 import com.example.truck_food.User.Customer;
+import com.example.truck_food.User.User;
 import com.example.truck_food.User.Vendor;
 import com.example.truck_food.View.VendorAdminPage;
 import com.example.truck_food.View.VendorListView;
@@ -25,6 +26,7 @@ import java.util.Map;
 
 public class LoginScreen extends AppCompatActivity {
 
+    public static User account;
     HashMap<String, Vendor> vendors;
     HashMap<String, Customer> customers;
 
@@ -62,6 +64,7 @@ public class LoginScreen extends AppCompatActivity {
                     String password = customer.getPassword();
                     if(username.equals(EnteredUsername)  && password.equals(EnteredPassword)){
                         found = true;
+                        account = customer;
                         break;
                     }
                 }
@@ -94,6 +97,7 @@ public class LoginScreen extends AppCompatActivity {
                     String password = vendor.getPassword();
                     if(username.equals(EnteredUsername)  && password.equals(EnteredPassword)){
                         found = true;
+                        account = vendor;
                         break;
                     }
                 }
@@ -117,11 +121,13 @@ public class LoginScreen extends AppCompatActivity {
     public void loginCustomer(){
         Intent intent = new Intent(this, VendorListView.class);
         this.startActivity(intent);
+        finish();
     }
 
     public void loginVendor(){
         Intent intent = new Intent(this, VendorAdminPage.class);
         this.startActivity(intent);
+        finish();
     }
 
 
