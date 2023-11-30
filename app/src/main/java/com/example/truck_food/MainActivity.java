@@ -26,13 +26,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        vendors = Database.getVendors(new DatabaseCompleteListener() {
-            @Override
-            public void databaseComplete() {
-                ((TextView) findViewById(R.id.menuItemList)).setText(vendors.toString());
-            }
-        });
     }
 
     public void testMaps(View v){

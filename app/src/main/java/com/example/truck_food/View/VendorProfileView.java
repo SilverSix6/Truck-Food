@@ -16,6 +16,6 @@ public class VendorProfileView extends AppCompatActivity {
 
         Bundle bundle = getIntent().getBundleExtra("Bundle");
         assert bundle != null;
-        vendor = bundle.getSerializable("Vendor", vendor.getClass());
+        vendor = bundle.getSerializable("Vendor", Vendor.class);
     }
 }
