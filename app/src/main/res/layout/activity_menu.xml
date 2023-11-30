@@ -14,30 +14,300 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Big John's Big Truck"
-                android:textAlignment="center"
-                android:textColor="#000000"
-                android:textSize="32sp" />
-
-            <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="match_parent"
-                android:layout_height="1373dp"
-                app:srcCompat="@drawable/hot_dog_with_mustard" />
-
             <RelativeLayout
-                android:id="@+id/relativeLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="match_parent"
+                    android:layout_height="125dp"
+                    app:srcCompat="@drawable/hot_dog_with_mustard" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="94dp"
+                    android:text="Big John's Big Truck"
+                    android:textAlignment="center"
+                    android:textColor="#000000"
+                    android:textSize="36sp"
+                    android:translationY="10dp" />
 
             </RelativeLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="26dp" />
+
+            <LinearLayout
+                android:layout_width="221dp"
+                android:layout_height="65dp"
+                android:orientation="horizontal"
+                android:translationX="10dp">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="52dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:src="@tools:sample/avatars"
+                    app:srcCompat="@android:drawable/btn_star_big_on" />
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="52dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:src="@tools:sample/avatars"
+                    app:srcCompat="@android:drawable/btn_star_big_on" />
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="52dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:src="@tools:sample/avatars"
+                    app:srcCompat="@android:drawable/btn_star_big_on" />
+
+                <ImageView
+                    android:id="@+id/imageView10"
+                    android:layout_width="52dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:src="@tools:sample/avatars"
+                    app:srcCompat="@android:drawable/btn_star_big_on" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="52dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:src="@tools:sample/avatars"
+                    app:srcCompat="@android:drawable/btn_star_big_on" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="About"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:translationX="10dp" />
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="401dp"
+                android:layout_height="101dp"
+                android:text="blahblahblahblahblah"
+                android:textSize="18sp"
+                android:translationX="10dp" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Menu"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:translationX="10dp" />
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="166dp"
+                android:orientation="vertical" />
+
+            <View
+                android:id="@+id/divider4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Reviews"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:translationX="10dp" />
+
+            <View
+                android:id="@+id/divider8"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="19dp" />
+
+            <View
+                android:id="@+id/divider5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="215dp"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="127dp"
+                android:orientation="horizontal">
+
+                <View
+                    android:id="@+id/divider11"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="0"
+                    android:background="?android:attr/listDivider"
+                    android:translationX="0dp" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="181dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0">
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="130dp"
+                        android:layout_height="39dp"
+                        android:orientation="horizontal"
+                        android:translationX="5dp"
+                        android:translationY="5dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/imageView11"
+                            android:layout_width="52dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="1"
+                            android:src="@tools:sample/avatars"
+                            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+                        <ImageView
+                            android:id="@+id/imageView12"
+                            android:layout_width="52dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="1"
+                            android:src="@tools:sample/avatars"
+                            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+                        <ImageView
+                            android:id="@+id/imageView13"
+                            android:layout_width="52dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="1"
+                            android:src="@tools:sample/avatars"
+                            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+                        <ImageView
+                            android:id="@+id/imageView14"
+                            android:layout_width="52dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="1"
+                            android:src="@tools:sample/avatars"
+                            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+                        <ImageView
+                            android:id="@+id/imageView15"
+                            android:layout_width="52dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="1"
+                            android:src="@tools:sample/avatars"
+                            app:srcCompat="@android:drawable/btn_star_big_on" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="145dp"
+                        android:layout_height="62dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1"
+                        android:text="this item is cool and it tasted good hooray"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="28dp"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="70dp"
+                        android:layout_marginBottom="3dp"
+                        android:text="..."
+                        android:textSize="30sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:id="@+id/divider10"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="?android:attr/listDivider"
+                    android:translationX="-15dp" />
+
+                <View
+                    android:id="@+id/divider7"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="?android:attr/listDivider"
+                    android:translationX="-5dp" />
+
+                <View
+                    android:id="@+id/divider6"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="?android:attr/listDivider" />
+
+                <Button
+                    android:id="@+id/button"
+                    style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="79dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#00BCD4"
+                    android:text="Write a Review!"
+                    android:textSize="20sp"
+                    android:textStyle="normal"
+                    android:translationY="20dp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider9"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="215dp"
+                android:background="?android:attr/listDivider" />
 
         </LinearLayout>
     </ScrollView>
