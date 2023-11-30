@@ -15,6 +15,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class UpdateLocation extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -44,6 +45,21 @@ public class UpdateLocation extends AppCompatActivity implements OnMapReadyCallb
 
         // Move the camera to Kelowna and zoom in
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(kelowna, 10.0f));
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+
+        // Set a click listener for the map
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng point) {
+                // Clear all markers
+                mMap.clear();
+
+                // Add a marker at the clicked location
+                mMap.addMarker(new MarkerOptions().position(point));
+
+                // TODO: Save the location to Firebase
+            }
+        });
     }
 
 
