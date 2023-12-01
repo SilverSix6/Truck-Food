@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/everything"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Review.Menu">
@@ -10,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" >
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,7 +49,43 @@
                 android:layout_width="221dp"
                 android:layout_height="65dp"
                 android:orientation="horizontal"
-                android:translationX="10dp"/>
+                android:translationX="10dp">
+
+                <ImageView
+                    android:id="@+id/imageView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/gold_star_svg" />
+
+                <ImageView
+                    android:id="@+id/imageView17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/gold_star_svg" />
+
+                <ImageView
+                    android:id="@+id/imageView18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/gold_star_svg" />
+
+                <ImageView
+                    android:id="@+id/imageView19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/gold_star_svg" />
+
+                <ImageView
+                    android:id="@+id/imageView20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/gold_star_svg" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/textView"
@@ -68,7 +105,8 @@
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="401dp"
-                android:layout_height="101dp"
+                android:layout_height="wrap_content"
+                android:minHeight="100dp"
                 android:text="blahblahblahblahblah"
                 android:textSize="18sp"
                 android:translationX="10dp" />
@@ -89,15 +127,24 @@
                 android:translationX="10dp" />
 
             <View
+                android:id="@+id/divider12"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <View
                 android:id="@+id/divider3"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="?android:attr/listDivider" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="166dp"
-                android:orientation="vertical" />
+                android:id="@+id/menu"
+                android:layout_width="401dp"
+                android:layout_height="wrap_content"
+                android:minHeight="100dp"
+                android:orientation="vertical"
+                android:translationX="10dp" />
 
             <View
                 android:id="@+id/divider4"
@@ -129,7 +176,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="215dp"
+                android:layout_marginEnd="197dp"
                 android:background="?android:attr/listDivider" />
 
             <LinearLayout
@@ -159,15 +206,53 @@
                         android:translationX="5dp"
                         android:translationY="5dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/imageView21"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/gold_star_svg" />
+
+                        <ImageView
+                            android:id="@+id/imageView22"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/gold_star_svg" />
+
+                        <ImageView
+                            android:id="@+id/imageView23"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/gold_star_svg" />
+
+                        <ImageView
+                            android:id="@+id/imageView24"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/gold_star_svg" />
+
+                        <ImageView
+                            android:id="@+id/imageView25"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/gold_star_svg" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/textView9"
                         android:layout_width="145dp"
                         android:layout_height="62dp"
                         android:layout_marginStart="16dp"
+                        android:layout_marginTop="2dp"
                         android:layout_weight="1"
                         android:text="this item is cool and it tasted good hooray"
+                        android:textSize="17sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
@@ -225,7 +310,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="215dp"
+                android:layout_marginEnd="197dp"
                 android:background="?android:attr/listDivider" />
 
 
