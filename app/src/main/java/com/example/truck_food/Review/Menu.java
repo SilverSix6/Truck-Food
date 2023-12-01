@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
@@ -13,12 +14,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
+import com.example.truck_food.Database.DatabaseCompleteListener;
 import com.example.truck_food.R;
+import com.example.truck_food.User.MenuItem;
+import com.example.truck_food.User.Vendor;
+import com.example.truck_food.Database.Database;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Menu extends AppCompatActivity {
 
@@ -30,10 +39,19 @@ public class Menu extends AppCompatActivity {
     String vendorId;
     ConstraintLayout every;
     LinearLayout menu;
+    
+    Vendor vendor;
+    HashMap<String, Vendor> vendors;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if (bundle != null) {
+        Bundle b = bundle.getBundle("Bundle");
+        vendor = (Vendor) b.getSerializable("Vendor"); }
+        vendorId = "-NkS23qjMcP2ENhWiL9c";
 
         root = FirebaseDatabase.getInstance().getReference();
         menuIndex = 0;
@@ -41,12 +59,64 @@ public class Menu extends AppCompatActivity {
         every = findViewById(R.id.everything);
         about = findViewById(R.id.textView5);
         menu = findViewById(R.id.menu);
-        every.setVisibility(View.GONE);
-        vendorId = "-NkS23qjMcP2ENhWiL9c";
+        if (bundle != null) {
+            addMenuItems(vendor);
+            title.setText(vendor.getTruckName());
+            about.setText(vendor.getDescription());
+        } else
+            readValue();
 
-
-        readValue();
     }
+
+
+    protected void readValue() {
+        root.get().addOnCompleteListener(onValuesFetched);
+    }
+    public void addMenuItems(Vendor v) {
+
+
+        ArrayList<MenuItem> items = v.getMenu();
+        for (int i = 0; i < items.size(); i++) {
+            MenuItem item = items.get(i);
+            LinearLayout menuItem = new LinearLayout(Menu.this);
+            menuItem.setOrientation(LinearLayout.HORIZONTAL);
+            TextView itemName = new TextView(Menu.this);
+            itemName.setText(item.getName());
+            TextView itemDesc = new TextView(Menu.this);
+            TextView itemPrice = new TextView(Menu.this);
+            itemPrice.setText(String.valueOf(item.getPrice()));
+            itemDesc.setText(item.getDescription());
+            LinearLayout.LayoutParams par = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
+            LinearLayout.LayoutParams par2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 0.8f);
+            LinearLayout.LayoutParams par3 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.2f);
+
+            itemName.setLayoutParams(par);
+            itemDesc.setLayoutParams(par2);
+            itemPrice.setLayoutParams(par3);
+
+            itemName.setTextSize(24);
+            itemDesc.setTextSize(18);
+            itemPrice.setTextSize(18);
+
+            menuItem.setMinimumHeight(100);
+            menuItem.setPadding(0, 20, 0, 20);
+
+            menuItem.addView(itemName);
+            menuItem.addView(itemDesc);
+            menuItem.addView(itemPrice);
+            View div = new View(Menu.this);
+            int height = (int) getResources().getDisplayMetrics().density * 2;
+            div.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
+            div.setBackgroundColor(Color.parseColor("#000000"));
+            div.setAlpha(0.25f);
+
+            menu.addView(menuItem);
+            menu.addView(div);
+
+
+        }
+    }
+
     private OnCompleteListener<DataSnapshot> onValuesFetched = new OnCompleteListener<DataSnapshot>() {
         @Override
         public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -76,20 +146,13 @@ public class Menu extends AppCompatActivity {
                     LinearLayout.LayoutParams par2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 0.8f);
                     LinearLayout.LayoutParams par3 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.2f);
 
-
                     itemName.setLayoutParams(par);
                     itemDesc.setLayoutParams(par2);
                     itemPrice.setLayoutParams(par3);
 
-
-
                     itemName.setTextSize(24);
                     itemDesc.setTextSize(18);
                     itemPrice.setTextSize(18);
-
-
-
-
 
                     menuItem.setMinimumHeight(100);
                     menuItem.setPadding(0,20,0,20);
@@ -103,19 +166,12 @@ public class Menu extends AppCompatActivity {
                     div.setBackgroundColor(Color.parseColor("#000000"));
                     div.setAlpha(0.25f);
 
-
-
                     menu.addView(menuItem);
 
                     menu.addView(div);
-
-
                 });
                 every.setVisibility(View.VISIBLE);
             }
         }
     };
-    protected void readValue() {
-        root.get().addOnCompleteListener(onValuesFetched);
-    }
 }
