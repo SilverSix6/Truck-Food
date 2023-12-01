@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import com.example.truck_food.Image.Image;
+
 import java.io.Serializable;
 
 public class MenuItem implements Serializable {
