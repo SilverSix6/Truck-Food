@@ -4,11 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.truck_food.Location.UpdateLocation;
 import com.example.truck_food.Login.MainLoginScreen;
 import com.example.truck_food.R;
-import com.google.firebase.database.core.view.View;
+
 
 public class VendorAdminPage extends AppCompatActivity {
 

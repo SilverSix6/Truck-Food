@@ -84,7 +84,6 @@ public class VendorListView extends AppCompatActivity {
         intent.putExtra("Bundle", bundle);
 
         this.startActivity(intent);
-        finish();
     }
 
     public void sort(View view) {
