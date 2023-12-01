@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -16,12 +17,18 @@ import android.widget.TextView;
 
 import com.example.truck_food.Database.Database;
 import com.example.truck_food.Database.DatabaseCompleteListener;
+import com.example.truck_food.Login.LoginScreen;
 import com.example.truck_food.Login.MainLoginScreen;
 import com.example.truck_food.R;
+import com.example.truck_food.User.Customer;
 import com.example.truck_food.User.Vendor;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class VendorListView extends AppCompatActivity {
 
@@ -39,13 +46,13 @@ public class VendorListView extends AppCompatActivity {
             @Override
             public void databaseComplete() {
                 // Update screen
-                updateList();
+                updateList(new ArrayList<>(vendors.values()));
             }
         });
     }
 
-    public void updateList(){
-        for (Vendor vendor: vendors.values()){
+    public void updateList(ArrayList<Vendor> vendorList){
+        for (Vendor vendor: vendorList){
             RelativeLayout layout = new RelativeLayout(this);
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.WRAP_CONTENT));
             layout.setLayoutParams(params);
@@ -92,20 +99,51 @@ public class VendorListView extends AppCompatActivity {
                     assert bundle != null;
                     // Perform sort
                     sortVendors(bundle.getString("Search", ""), bundle.getString("Options", ""), bundle.getString("Max Distance", String.valueOf(-1)), bundle.getBoolean("Favorites", false));
-
-                    // Update Screen
-                    updateList();
                 }
             });
 
     public void sortVendors(String search, String orderType, String distance, boolean favorites) {
+        /*
+        Stream<Vendor> vendorStream = vendors.values().stream();
 
+        // Filter vendor name
+        if (!Objects.equals(search, "")) {
+            vendorStream = vendorStream.filter(item -> item.getTruckName().contains(search));
+        }
+
+        // Filter favorites
+
+
+        // Sort by type
+        switch (orderType) {
+            case "Distance Ascending":
+                vendorStream = vendorStream.sorted(Comparator.comparing(Ven))
+                break;
+            case "Distance Descending":
+                break;
+            case "New to the App":
+                vendorStream = vendorStream.sorted(Comparator.comparing())
+                break;
+            default:
+
+        }
+
+
+        // Filter Distance
+        if (!Objects.equals(distance, "")) {
+            vendorStream = vendorStream.filter(item -> Maps.distanceLatLong(item.getLatitude(), item.getLongitude(), 0, 0) < Double.parseDouble(distance));
+        }
+
+        updateList(new ArrayList<>(vendorStream.collect(Collectors.toList())));
+
+         */
     }
 
     public void logout(View view) {
         Intent intent = new Intent(this, MainLoginScreen.class);
 
         // todo: Add authentication stuff
+        LoginScreen.account = null;
 
         this.startActivity(intent);
     }
@@ -117,6 +155,6 @@ public class VendorListView extends AppCompatActivity {
     }
 
     public void favorites(View view) {
-
+        sortVendors("","","",true);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.truck_food.User;
 
+import com.example.truck_food.Image.Image;
 import com.example.truck_food.Review.Review;
 
 import java.io.Serializable;
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 
 public class Vendor extends User implements Serializable {
     String truckName;
-    String bannerImage;
+    Image bannerImage;
     String description;
     ArrayList<MenuItem> menu;
     ArrayList<Review> reviews;
@@ -18,7 +19,7 @@ public class Vendor extends User implements Serializable {
         super();
     }
 
-    public Vendor(String username, String email, String password, String truckName, String bannerImage, String description, ArrayList<MenuItem> menu) {
+    public Vendor(String username, String email, String password, String truckName, Image bannerImage, String description, ArrayList<MenuItem> menu) {
         super(username, email, password);
         this.truckName = truckName;
         this.bannerImage = bannerImage;
@@ -29,7 +30,7 @@ public class Vendor extends User implements Serializable {
         reviews = null;
     }
 
-    public Vendor(String username, String email, String password, String truckName, String bannerImage, String description, ArrayList<MenuItem> menu, double latitude, double longitude) {
+    public Vendor(String username, String email, String password, String truckName, Image bannerImage, String description, ArrayList<MenuItem> menu, double latitude, double longitude) {
         super(username, email, password);
         this.truckName = truckName;
         this.bannerImage = bannerImage;
@@ -48,11 +49,11 @@ public class Vendor extends User implements Serializable {
         this.truckName = truckName;
     }
 
-    public String getBannerImage() {
+    public Image getBannerImage() {
         return bannerImage;
     }
 
-    public void setBannerImage(String bannerImage) {
+    public void setBannerImage(Image bannerImage) {
         this.bannerImage = bannerImage;
     }
 
@@ -103,6 +104,8 @@ public class Vendor extends User implements Serializable {
     public void removeReview(Review review) {
         reviews.remove(review);
     }
+
+
 
     @Override
     public String toString() {

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.truck_food.Database.Database;
+import com.example.truck_food.Image.Image;
 import com.example.truck_food.Login.MainLoginScreen;
 import com.example.truck_food.R;
 import com.example.truck_food.User.Customer;
@@ -26,6 +27,7 @@ import java.util.Objects;
 public class CreateAccountVerification extends AppCompatActivity {
     Bundle accountInformation;
     ArrayList<MenuItem> menu;
+    Image image;
     TextView textView;
 
     @Override
@@ -40,6 +42,8 @@ public class CreateAccountVerification extends AppCompatActivity {
 
         //noinspection deprecation
         menu = (ArrayList<MenuItem>) accountInformation.getSerializable("menu");
+        image = accountInformation.getSerializable("Image", Image.class);
+
 
         if(menu != null) {
             Log.d("SignUp", menu.toString());
@@ -66,7 +70,7 @@ public class CreateAccountVerification extends AppCompatActivity {
             stringBuilder.append(accountInformation.getString("Truck Name"));
             stringBuilder.append('\n');
             stringBuilder.append("Banner Image: ");
-            stringBuilder.append(accountInformation.getString("ImageURL"));
+            stringBuilder.append(accountInformation.getSerializable("Image", Image.class) != null);
             stringBuilder.append('\n');
             stringBuilder.append("Description: ");
             stringBuilder.append(accountInformation.getString("Description"));
@@ -89,23 +93,13 @@ public class CreateAccountVerification extends AppCompatActivity {
         // Determine if creating a vendor or a customer
         // Truck name is always non null if creating a vendor
         if (accountInformation.getString("Truck Name") != null) {
-            if (menu != null){
-                Database.addVendor(new Vendor(accountInformation.getString("Username"),
-                        accountInformation.getString("Email"),
-                        accountInformation.getString("Password"),
-                        accountInformation.getString("Truck Name"),
-                        accountInformation.getString("ImageURL"),
-                        accountInformation.getString("Description"),
-                        menu));
-            } else {
-                Database.addVendor(new Vendor(accountInformation.getString("Username"),
-                        accountInformation.getString("Email"),
-                        accountInformation.getString("Password"),
-                        accountInformation.getString("Truck Name"),
-                        accountInformation.getString("ImageURL"),
-                        accountInformation.getString("Description"),
-                        null));
-            }
+            Database.addVendor(new Vendor(accountInformation.getString("Username"),
+                    accountInformation.getString("Email"),
+                    accountInformation.getString("Password"),
+                    accountInformation.getString("Truck Name"),
+                    image,
+                    accountInformation.getString("Description"),
+                    menu));
         } else {
             Database.addCustomer(new Customer(accountInformation.getString("Username"),
                     accountInformation.getString("Email"),

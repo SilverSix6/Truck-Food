@@ -1,5 +1,7 @@
 package com.example.truck_food.User;
 
+import java.util.Date;
+
 public abstract class User {
     String username;
     String email;
@@ -38,5 +40,4 @@ public abstract class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
 }
