@@ -13,8 +13,10 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.example.truck_food.User.Vendor;
+import com.example.truck_food.databinding.ActivityUpdateLocationBinding;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -22,6 +24,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.truck_food.databinding.ActivityViewVendorLocationsBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,10 +34,14 @@ import java.util.HashMap;
 public class ViewVendorLocations extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private ActivityViewVendorLocationsBinding binding;
     HashMap<String, Vendor> vendors;
 
+    private ActivityViewVendorLocationsBinding binding;
+
+    // Used to ask user for their location
     private FusedLocationProviderClient fusedLocationClient;
+
+    private LatLng currentLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,27 +75,12 @@ public class ViewVendorLocations extends FragmentActivity implements OnMapReadyC
         mMap = googleMap;
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
-        /* For when we get current Location working
-        fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        // Got last known location. In some rare situations this can be null.
-                        if (location != null) {
-                            // Logic to handle location object
-                            Log.d("myTag", location.toString());
-                            LatLng currentLoc = new LatLng(location.getLatitude(), location.getLongitude());
+        // Create a LatLng object for the location of Kelowna, BC
+        LatLng kelowna = new LatLng(49.8877, -119.4961);
 
-                            System.out.println(location.getLatitude());
-                            mMap.addMarker(new MarkerOptions().position(currentLoc).title("Marker in Sydney"));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLoc));
-                        } else {
-                            Log.d("LocationNull", "Location is null");
-                        }
-                    }
-                });
-
-         */
+        // Move the camera to Kelowna and zoom in
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(kelowna, 15.0f));
+        mMap.getUiSettings().setZoomControlsEnabled(true);
 
             vendors = Database.getVendors(new DatabaseCompleteListener() {
                 @Override
@@ -96,6 +88,8 @@ public class ViewVendorLocations extends FragmentActivity implements OnMapReadyC
                     addMarkers();
                 }
             });
+
+        currentLocation(new View(this));
         }
 
 
@@ -107,6 +101,39 @@ public class ViewVendorLocations extends FragmentActivity implements OnMapReadyC
             String truckName = vendor.getTruckName();
             LatLng downtown = new LatLng(latitude, longitude);
             mMap.addMarker(new MarkerOptions().position(downtown).title(truckName));
+        }
+    }
+
+    public void currentLocation(View v) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // Request location permissions if they were not granted
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+        } else {
+            // Get the last known location
+            fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if (location != null) {
+                        LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
+
+                        //Check if user's current location is in Kelowna boundary
+                        LatLng northeast = new LatLng(50.02,-119.374);
+                        LatLng southwest = new LatLng(49.77, -119.589);
+                        LatLngBounds kelownaBounds = new LatLngBounds(southwest, northeast);
+
+                        if(!kelownaBounds.contains(currentLocation)){
+                            //Move camera to downtown Kelowna
+                            LatLng downtownKelowna = new LatLng(49.885, -119.493);
+                            mMap.addMarker(new MarkerOptions().position(downtownKelowna).title("You are Here"));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng(downtownKelowna));
+                        }
+                        else{
+                            //User's location is in boundary so move camera to their position
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 10.0f));
+                        }
+                    }
+                }
+            });
         }
     }
 
