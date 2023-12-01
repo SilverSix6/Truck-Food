@@ -23,6 +23,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -69,19 +71,14 @@ public class ViewVendorLocations extends FragmentActivity implements OnMapReadyC
      * installed Google Play services and returned to the app.
      */
 
-    @SuppressLint("MissingPermission")
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
-        // Create a LatLng object for the location of Kelowna, BC
-        LatLng kelowna = new LatLng(49.8877, -119.4961);
 
-        // Move the camera to Kelowna and zoom in
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(kelowna, 15.0f));
-        mMap.getUiSettings().setZoomControlsEnabled(true);
-
+        //Add all locations of vendors to map
             vendors = Database.getVendors(new DatabaseCompleteListener() {
                 @Override
                 public void databaseComplete() {
@@ -89,6 +86,7 @@ public class ViewVendorLocations extends FragmentActivity implements OnMapReadyC
                 }
             });
 
+            //Get current location data
         currentLocation(new View(this));
         }
 
@@ -124,12 +122,13 @@ public class ViewVendorLocations extends FragmentActivity implements OnMapReadyC
                         if(!kelownaBounds.contains(currentLocation)){
                             //Move camera to downtown Kelowna
                             LatLng downtownKelowna = new LatLng(49.885, -119.493);
-                            mMap.addMarker(new MarkerOptions().position(downtownKelowna).title("You are Here"));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng(downtownKelowna));
+                            mMap.addMarker(new MarkerOptions().position(downtownKelowna).title("You are Here")
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(downtownKelowna, 15));
                         }
                         else{
                             //User's location is in boundary so move camera to their position
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 10.0f));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15.0f));
                         }
                     }
                 }
