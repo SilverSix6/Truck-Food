@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.truck_food.R;
 import com.example.truck_food.databinding.ActivityUpdateLocationBinding;
@@ -22,6 +23,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 
 public class UpdateLocation extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -30,6 +33,10 @@ public class UpdateLocation extends AppCompatActivity implements OnMapReadyCallb
 
     // Used to ask user for their location
     private FusedLocationProviderClient fusedLocationClient;
+
+    // LatLng for getting the user's location
+    // Doesn't matter if it's a point/click or using current location
+    private LatLng userLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +76,9 @@ public class UpdateLocation extends AppCompatActivity implements OnMapReadyCallb
                 // Add a marker at the clicked location
                 mMap.addMarker(new MarkerOptions().position(point));
 
+                // Sets user's location based on click/tap
+                userLocation = new LatLng(point.latitude, point.longitude);
+
                 // TODO: Save the location to Firebase
             }
         });
@@ -106,9 +116,36 @@ public class UpdateLocation extends AppCompatActivity implements OnMapReadyCallb
                         mMap.clear();
                         mMap.addMarker(new MarkerOptions().position(currentLocation));
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 10.0f));
+                        // Sets the user's location to the current one
+                        userLocation = currentLocation;
                     }
                 }
             });
+        }
+    }
+
+    public void confirm(View v){
+        // Checks if user first enters a valid location (i.e not outside of Kelowna)
+        // These values are approximations I got from Google Maps so they may not be too accurate
+        // Upon testing, it actually goes up to a little bit of West Kelowna so that's cool.
+        LatLng northeast = new LatLng(50.02,-119.374);
+        LatLng southwest = new LatLng(49.77, -119.589);
+
+        // Create a LatLngBounds object
+        // This is the boundary of Kelowna
+        LatLngBounds kelownaBounds = new LatLngBounds(southwest, northeast);
+
+        // If the user IS NOT within Kelowna
+        // Set the location somewhere in Downtown and print a toast message
+        if(!kelownaBounds.contains(userLocation)){
+            // Again these are rough estimations so it's somewhere in Downtown Kelowna
+            LatLng downtownKelowna = new LatLng(49.88, -119.493);
+            mMap.clear();
+            mMap.addMarker(new MarkerOptions().position(downtownKelowna).title("Downtown Kelowna"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(downtownKelowna));
+
+            // Make the toast message
+            Toast.makeText(this, "Your location is too far! Please stay within the Kelowna area and try again.", Toast.LENGTH_LONG).show();
         }
     }
 
