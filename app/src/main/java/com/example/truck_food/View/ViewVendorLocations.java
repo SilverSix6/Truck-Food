@@ -128,6 +128,8 @@ public class ViewVendorLocations extends FragmentActivity implements OnMapReadyC
                         }
                         else{
                             //User's location is in boundary so move camera to their position
+                            mMap.addMarker(new MarkerOptions().position(currentLocation).title("You are Here")
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15.0f));
                         }
                     }
