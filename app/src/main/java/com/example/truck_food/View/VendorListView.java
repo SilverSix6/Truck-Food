@@ -20,6 +20,7 @@ import com.example.truck_food.Database.DatabaseCompleteListener;
 import com.example.truck_food.Login.LoginScreen;
 import com.example.truck_food.Login.MainLoginScreen;
 import com.example.truck_food.R;
+import com.example.truck_food.Review.Menu;
 import com.example.truck_food.User.Customer;
 import com.example.truck_food.User.Vendor;
 
@@ -76,13 +77,14 @@ public class VendorListView extends AppCompatActivity {
     }
 
     public void openVendorProfile(Vendor vendor){
-        Intent intent = new Intent(this, VendorProfileView.class);
+        Intent intent = new Intent(this, Menu.class);
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("Vendor", vendor);
         intent.putExtra("Bundle", bundle);
 
         this.startActivity(intent);
+        finish();
     }
 
     public void sort(View view) {
@@ -146,12 +148,13 @@ public class VendorListView extends AppCompatActivity {
         LoginScreen.account = null;
 
         this.startActivity(intent);
+        finish();
     }
 
     public void mapView(View view) {
         Intent intent = new Intent(this, ViewVendorLocations.class);
-
         this.startActivity(intent);
+        finish();
     }
 
     public void favorites(View view) {
