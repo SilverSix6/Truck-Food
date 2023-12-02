@@ -42,40 +42,59 @@ public class Menu extends AppCompatActivity {
     
     Vendor vendor;
     HashMap<String, Vendor> vendors;
+    int count;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        if (bundle != null) {
-        Bundle b = bundle.getBundle("Bundle");
-        vendor = (Vendor) b.getSerializable("Vendor"); }
-        vendorId = "-NkS23qjMcP2ENhWiL9c";
-
         root = FirebaseDatabase.getInstance().getReference();
         menuIndex = 0;
         title = findViewById(R.id.textView2);
         every = findViewById(R.id.everything);
         about = findViewById(R.id.textView5);
         menu = findViewById(R.id.menu);
+        count = 0;
+        if (bundle != null) {
+            Bundle b = bundle.getBundle("Bundle");
+                vendor = (Vendor) b.getSerializable("Vendor");
+        }
+        else {
+            vendorId = "-NkS23qjMcP2ENhWiL9c";
+            vendors = Database.getVendors(new DatabaseCompleteListener() {
+                @Override
+                public void databaseComplete() {
+
+                    vendor = vendors.get(vendorId);
+                    title.setText(vendor.getTruckName());
+                    about.setText(vendor.getDescription());
+                    addMenuItems(vendor);
+
+                }
+            });
+
+        }
+
         if (bundle != null) {
             addMenuItems(vendor);
             title.setText(vendor.getTruckName());
             about.setText(vendor.getDescription());
-        } else
-            readValue();
+        }
 
     }
 
-
+/*
     protected void readValue() {
         root.get().addOnCompleteListener(onValuesFetched);
     }
+
+ */
     public void addMenuItems(Vendor v) {
 
 
         ArrayList<MenuItem> items = v.getMenu();
+
         for (int i = 0; i < items.size(); i++) {
             MenuItem item = items.get(i);
             LinearLayout menuItem = new LinearLayout(Menu.this);
@@ -116,7 +135,7 @@ public class Menu extends AppCompatActivity {
 
         }
     }
-
+/*
     private OnCompleteListener<DataSnapshot> onValuesFetched = new OnCompleteListener<DataSnapshot>() {
         @Override
         public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -174,4 +193,6 @@ public class Menu extends AppCompatActivity {
             }
         }
     };
+
+ */
 }
