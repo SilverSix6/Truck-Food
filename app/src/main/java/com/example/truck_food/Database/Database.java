@@ -48,6 +48,7 @@ public class Database {
                     return;
                 }
                 for(DataSnapshot vendorSnapshot: task.getResult().getChildren()){
+
                     vendors.put(vendorSnapshot.getKey(),vendorSnapshot.getValue(Vendor.class));
                     listener.databaseComplete();
                 }

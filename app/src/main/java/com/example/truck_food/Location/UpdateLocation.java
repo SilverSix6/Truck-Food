@@ -149,8 +149,6 @@ public class UpdateLocation extends AppCompatActivity implements OnMapReadyCallb
         LatLng northeast = new LatLng(50.02,-119.374);
         LatLng southwest = new LatLng(49.77, -119.589);
 
-        // Test userlocation
-        //Toast.makeText(this, "userLocation lat is: " + userLocation.latitude + "\nuserLocation long is: " + userLocation.longitude, Toast.LENGTH_SHORT).show();
         // Test vendor
         Toast.makeText(this, "vendor lat is: " + loggedInVendor.getLatitude() + "\nvendor long is: " + loggedInVendor.getLongitude() + "vendorId: " + vendorId, Toast.LENGTH_SHORT).show();
 
