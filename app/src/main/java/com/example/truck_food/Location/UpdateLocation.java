@@ -52,6 +52,8 @@ public class UpdateLocation extends AppCompatActivity implements OnMapReadyCallb
     private HashMap<String, Vendor> vendors;
     private Vendor loggedInVendor;
 
+    private String vendorId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +70,7 @@ public class UpdateLocation extends AppCompatActivity implements OnMapReadyCallb
 
         // Initialize the user that's logged in
         loggedInVendor = (Vendor) LoginScreen.account;
+        vendorId = LoginScreen.accountId;
     }
 
     @Override
@@ -149,7 +152,7 @@ public class UpdateLocation extends AppCompatActivity implements OnMapReadyCallb
         // Test userlocation
         //Toast.makeText(this, "userLocation lat is: " + userLocation.latitude + "\nuserLocation long is: " + userLocation.longitude, Toast.LENGTH_SHORT).show();
         // Test vendor
-        Toast.makeText(this, "vendor lat is: " + loggedInVendor.getLatitude() + "\nvendor long is: " + loggedInVendor.getLongitude(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "vendor lat is: " + loggedInVendor.getLatitude() + "\nvendor long is: " + loggedInVendor.getLongitude() + "vendorId: " + vendorId, Toast.LENGTH_SHORT).show();
 
         // Create a LatLngBounds object
         // This is the boundary of Kelowna
@@ -171,6 +174,7 @@ public class UpdateLocation extends AppCompatActivity implements OnMapReadyCallb
         else{
                 loggedInVendor.setLatitude(userLocation.latitude);
                 loggedInVendor.setLongitude(userLocation.longitude);
+                Database.updateVendor(vendorId, loggedInVendor);
         }
     }
 
