@@ -27,6 +27,7 @@ import java.util.Map;
 public class LoginScreen extends AppCompatActivity {
 
     public static User account;
+    public static String accountId;
     HashMap<String, Vendor> vendors;
     HashMap<String, Customer> customers;
 
@@ -65,6 +66,7 @@ public class LoginScreen extends AppCompatActivity {
                     if(username.equals(EnteredUsername)  && password.equals(EnteredPassword)){
                         found = true;
                         account = customer;
+                        accountId = key;
                         break;
                     }
                 }
