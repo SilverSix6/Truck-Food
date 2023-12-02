@@ -98,6 +98,7 @@ public class LoginScreen extends AppCompatActivity {
                     String username = vendor.getUsername();
                     String password = vendor.getPassword();
                     if(username.equals(EnteredUsername)  && password.equals(EnteredPassword)){
+
                         found = true;
                         account = vendor;
                         accountId = key;

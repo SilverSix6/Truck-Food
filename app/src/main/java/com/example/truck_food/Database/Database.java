@@ -13,6 +13,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Database {
     static FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -48,7 +49,7 @@ public class Database {
                     return;
                 }
                 for(DataSnapshot vendorSnapshot: task.getResult().getChildren()){
-                    vendors.put(task.getResult().getKey(),vendorSnapshot.getValue(Vendor.class));
+                    vendors.put(task.getResult().getChildren().iterator().next().getKey(),vendorSnapshot.getValue(Vendor.class));
                     listener.databaseComplete();
                 }
 
