@@ -82,7 +82,7 @@ public class Database {
         return customers;
     }
 
-    public Customer getCustomer(String uid, DatabaseCompleteListener listener){
+    public static Customer getCustomer(String uid, DatabaseCompleteListener listener){
         final Customer[] customer = {null};
         database.getReference(CUSTOMER_LOCATION).child(uid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -100,7 +100,7 @@ public class Database {
         return customer[0];
     }
 
-    public Vendor getVendor(String uid, DatabaseCompleteListener listener){
+    public static Vendor getVendor(String uid, DatabaseCompleteListener listener){
         final Vendor[] vendor = {null};
         database.getReference(VENDOR_LOCATION).child(uid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -118,11 +118,11 @@ public class Database {
         return vendor[0];
     }
 
-    public void updateCustomer(String uid, Customer customer){
+    public static void updateCustomer(String uid, Customer customer){
         database.getReference(CUSTOMER_LOCATION).child(uid).setValue(customer);
     }
 
-    public void updateVendor(String uid, Vendor vendor){
+    public static void updateVendor(String uid, Vendor vendor){
         database.getReference(VENDOR_LOCATION).child(uid).setValue(vendor);
     }
 
