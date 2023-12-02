@@ -6,4 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".Review.WriteReview">
 
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="116dp"
+            android:transitionName="banner"
+            app:srcCompat="@drawable/hot_dog_with_mustard" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Big John's Big Truck"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="32sp"
+            android:transitionName="title" />
+
+    </RelativeLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

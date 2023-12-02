@@ -27,6 +27,7 @@
                     android:id="@+id/imageView7"
                     android:layout_width="match_parent"
                     android:layout_height="116dp"
+                    android:transitionName="banner"
                     app:srcCompat="@drawable/hot_dog_with_mustard" />
 
                 <TextView
@@ -36,7 +37,8 @@
                     android:text="Big John's Big Truck"
                     android:textAlignment="center"
                     android:textColor="#000000"
-                    android:textSize="32sp" />
+                    android:textSize="32sp"
+                    android:transitionName="title" />
 
             </RelativeLayout>
 
@@ -299,6 +301,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_weight="1"
                     android:backgroundTint="#00BCD4"
+                    android:onClick="createReview"
                     android:text="Write a Review!"
                     android:textSize="20sp"
                     android:textStyle="normal"

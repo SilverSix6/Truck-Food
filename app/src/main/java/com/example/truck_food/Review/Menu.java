@@ -5,17 +5,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
+import android.transition.Explode;
+import android.transition.Slide;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.*;
 
 import com.example.truck_food.Database.DatabaseCompleteListener;
+import com.example.truck_food.Image.Image;
+import com.example.truck_food.Login.LoginScreen;
 import com.example.truck_food.R;
+import com.example.truck_food.User.Customer;
 import com.example.truck_food.User.MenuItem;
 import com.example.truck_food.User.Vendor;
 import com.example.truck_food.Database.Database;
@@ -42,10 +51,14 @@ public class Menu extends AppCompatActivity {
     
     Vendor vendor;
     HashMap<String, Vendor> vendors;
+    ImageView bannerimg;
     int count;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
+        getWindow().setExitTransition(new Slide());
+        getWindow().setSharedElementExitTransition(null);
         setContentView(R.layout.activity_menu);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -54,34 +67,46 @@ public class Menu extends AppCompatActivity {
         title = findViewById(R.id.textView2);
         every = findViewById(R.id.everything);
         about = findViewById(R.id.textView5);
+        bannerimg = findViewById(R.id.imageView7);
         menu = findViewById(R.id.menu);
         count = 0;
         if (bundle != null) {
             Bundle b = bundle.getBundle("Bundle");
-                vendor = (Vendor) b.getSerializable("Vendor");
+            vendor = b.getSerializable("Vendor", Vendor.class);
+            updateMenu();
         }
         else {
             vendorId = "-NkS23qjMcP2ENhWiL9c";
             vendors = Database.getVendors(new DatabaseCompleteListener() {
                 @Override
                 public void databaseComplete() {
-
                     vendor = vendors.get(vendorId);
-                    title.setText(vendor.getTruckName());
-                    about.setText(vendor.getDescription());
-                    addMenuItems(vendor);
-
+                    updateMenu();
                 }
             });
 
         }
 
-        if (bundle != null) {
-            addMenuItems(vendor);
-            title.setText(vendor.getTruckName());
-            about.setText(vendor.getDescription());
-        }
+    }
 
+    public void createReview(View view) {
+       Intent intent = new Intent(this, WriteReview.class);
+       Bundle bundle = new Bundle();
+       bundle.putSerializable("vendor", vendor);
+
+       intent.putExtras(bundle);
+       startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this, Pair.create(bannerimg, "banner"), Pair.create(title, "title")).toBundle());
+    }
+
+    public void updateMenu() {
+        title.setText(vendor.getTruckName());
+        about.setText(vendor.getDescription());
+        addMenuItems(vendor);
+        Image banner = vendor.getBannerImage();
+        if (banner != null) {
+            Bitmap b = banner.getBitmap();
+            bannerimg.setImageBitmap(b);
+        }
     }
 
 /*
@@ -135,6 +160,8 @@ public class Menu extends AppCompatActivity {
 
         }
     }
+
+
 /*
     private OnCompleteListener<DataSnapshot> onValuesFetched = new OnCompleteListener<DataSnapshot>() {
         @Override
