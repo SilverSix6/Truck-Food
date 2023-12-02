@@ -12,7 +12,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.truck_food.Database.DatabaseCompleteListener;
+import com.example.truck_food.Login.LoginScreen;
 import com.example.truck_food.R;
+import com.example.truck_food.User.User;
+import com.example.truck_food.User.Vendor;
 import com.example.truck_food.databinding.ActivityUpdateLocationBinding;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -26,6 +30,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
+import com.example.truck_food.Database.Database;
+
+import java.util.HashMap;
+
 public class UpdateLocation extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -37,6 +45,12 @@ public class UpdateLocation extends AppCompatActivity implements OnMapReadyCallb
     // LatLng for getting the user's location
     // Doesn't matter if it's a point/click or using current location
     private LatLng userLocation;
+
+    // The Vendors HashMap  used to retrieve the Vendors in Firebase
+
+    // MIGHT DELETE THIS because apparently I can retrieve the log in info from LoginScreen
+    private HashMap<String, Vendor> vendors;
+    private Vendor loggedInVendor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +65,9 @@ public class UpdateLocation extends AppCompatActivity implements OnMapReadyCallb
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        // Initialize the user that's logged in
+        loggedInVendor = (Vendor) LoginScreen.account;
     }
 
     @Override
@@ -78,8 +95,6 @@ public class UpdateLocation extends AppCompatActivity implements OnMapReadyCallb
 
                 // Sets user's location based on click/tap
                 userLocation = new LatLng(point.latitude, point.longitude);
-
-                // TODO: Save the location to Firebase
             }
         });
     }
@@ -131,6 +146,11 @@ public class UpdateLocation extends AppCompatActivity implements OnMapReadyCallb
         LatLng northeast = new LatLng(50.02,-119.374);
         LatLng southwest = new LatLng(49.77, -119.589);
 
+        // Test userlocation
+        //Toast.makeText(this, "userLocation lat is: " + userLocation.latitude + "\nuserLocation long is: " + userLocation.longitude, Toast.LENGTH_SHORT).show();
+        // Test vendor
+        Toast.makeText(this, "vendor lat is: " + loggedInVendor.getLatitude() + "\nvendor long is: " + loggedInVendor.getLongitude(), Toast.LENGTH_SHORT).show();
+
         // Create a LatLngBounds object
         // This is the boundary of Kelowna
         LatLngBounds kelownaBounds = new LatLngBounds(southwest, northeast);
@@ -146,6 +166,11 @@ public class UpdateLocation extends AppCompatActivity implements OnMapReadyCallb
 
             // Make the toast message
             Toast.makeText(this, "Your location is too far! Please stay within the Kelowna area and try again.", Toast.LENGTH_LONG).show();
+        }
+        //Otherwise, update the vendor location in Firebase
+        else{
+                loggedInVendor.setLatitude(userLocation.latitude);
+                loggedInVendor.setLongitude(userLocation.longitude);
         }
     }
 
