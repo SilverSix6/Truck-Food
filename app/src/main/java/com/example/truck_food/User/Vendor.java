@@ -19,7 +19,7 @@ public class Vendor extends User implements Serializable {
         super();
     }
 
-    public Vendor(String username, String email, String password, String truckName, Image bannerImage, String description, ArrayList<MenuItem> menu) {
+    public Vendor(String username, String email, String password, String truckName, Image bannerImage, String description, ArrayList<MenuItem> menu, ArrayList<Review> reviews) {
         super(username, email, password);
         this.truckName = truckName;
         this.bannerImage = bannerImage;
@@ -27,10 +27,10 @@ public class Vendor extends User implements Serializable {
         this.menu = menu;
         latitude = 0;
         longitude = 0;
-        reviews = null;
+        this.reviews = reviews;
     }
 
-    public Vendor(String username, String email, String password, String truckName, Image bannerImage, String description, ArrayList<MenuItem> menu, double latitude, double longitude) {
+    public Vendor(String username, String email, String password, String truckName, Image bannerImage, String description, ArrayList<MenuItem> menu, double latitude, double longitude, ArrayList<Review> reviews) {
         super(username, email, password);
         this.truckName = truckName;
         this.bannerImage = bannerImage;
@@ -38,7 +38,7 @@ public class Vendor extends User implements Serializable {
         this.menu = menu;
         this.latitude = latitude;
         this.longitude = longitude;
-        reviews = null;
+        this.reviews = reviews;
     }
 
     public String getTruckName() {

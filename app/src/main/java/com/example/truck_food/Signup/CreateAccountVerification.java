@@ -99,7 +99,7 @@ public class CreateAccountVerification extends AppCompatActivity {
                     accountInformation.getString("Truck Name"),
                     image,
                     accountInformation.getString("Description"),
-                    menu));
+                    menu, null));
         } else {
             Database.addCustomer(new Customer(accountInformation.getString("Username"),
                     accountInformation.getString("Email"),

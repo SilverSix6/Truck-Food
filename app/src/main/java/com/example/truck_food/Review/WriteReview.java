@@ -1,5 +1,6 @@
 package com.example.truck_food.Review;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.transition.Explode;
 import android.transition.Slide;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -17,9 +19,15 @@ import android.widget.Toast;
 
 import com.example.truck_food.Database.Database;
 import com.example.truck_food.Image.Image;
+import com.example.truck_food.Login.LoginScreen;
 import com.example.truck_food.R;
 import com.example.truck_food.User.MenuItem;
 import com.example.truck_food.User.Vendor;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -32,7 +40,9 @@ public class WriteReview extends AppCompatActivity {
     LinearLayout stars;
     int score;
     EditText review;
+    private DatabaseReference root;
     ArrayList<String> itemsOrdered;
+    String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +57,9 @@ public class WriteReview extends AppCompatActivity {
         vendor = bundle.getSerializable("vendor", Vendor.class);
         title = findViewById(R.id.textView2);
         bannerimg = findViewById(R.id.imageView);
+        uid = "fsdfs";
         items = findViewById(R.id.items);
+        root = FirebaseDatabase.getInstance().getReference();
         stars = findViewById(R.id.stars);
         review = findViewById(R.id.editTextText);
         itemsOrdered = new ArrayList<>();
@@ -58,6 +70,7 @@ public class WriteReview extends AppCompatActivity {
             bannerimg.setImageBitmap(b);
         }
         title.setText(vendor.getTruckName());
+        readValue();
     }
 
     public void starClick(View view) {
@@ -91,8 +104,11 @@ public class WriteReview extends AppCompatActivity {
         intent.putExtras(bundle);
         startActivityForResult(intent, 1);
     }
-/*
+    protected void readValue() {
+        root.get().addOnCompleteListener(onValuesFetched);
+    }
     public void postReview(View view) {
+
         String reviewString = review.getText().toString();
         boolean valid = true;
         String fail = "";
@@ -115,12 +131,35 @@ public class WriteReview extends AppCompatActivity {
 
             Review r = new Review(reviewString, score, "tomer", vendor.getTruckName(), itemsOrdered);
             ArrayList<Review> reviews = vendor.getReviews();
+            if (reviews == null) {
+                reviews = new ArrayList<>();
+            }
             reviews.add(r);
             vendor.setReviews(reviews);
-            title.setText(vendor.getUsername());
+            Database.updateVendor(uid, vendor);
+            finish();
         }
     }
-*/
+    private OnCompleteListener<DataSnapshot> onValuesFetched = new OnCompleteListener<DataSnapshot>() {
+        @Override
+        public void onComplete(@NonNull Task<DataSnapshot> task) {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting data", task.getException());
+            } else {
+                Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                String path = "Firebase/Data/Vendor";
+                DataSnapshot d = task.getResult().child(path);
+
+                d.getChildren().forEach((element) -> {
+                    if (String.valueOf(element.child("truckName").getValue()).equals(vendor.getTruckName())) {
+                        uid = element.getKey().toString();
+                    }
+
+                });
+            }
+        }
+    };
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
