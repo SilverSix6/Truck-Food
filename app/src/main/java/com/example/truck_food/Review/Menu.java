@@ -6,6 +6,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -58,7 +59,7 @@ public class Menu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
         getWindow().setExitTransition(new Slide());
-        getWindow().setSharedElementExitTransition(null);
+
         setContentView(R.layout.activity_menu);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -101,7 +102,8 @@ public class Menu extends AppCompatActivity {
     public void updateMenu() {
         title.setText(vendor.getTruckName());
         about.setText(vendor.getDescription());
-        addMenuItems(vendor);
+        int height = (int) getResources().getDisplayMetrics().density * 2;
+        addMenuItems(vendor, Menu.this, height, menu);
         Image banner = vendor.getBannerImage();
         if (banner != null) {
             Bitmap b = banner.getBitmap();
@@ -115,19 +117,19 @@ public class Menu extends AppCompatActivity {
     }
 
  */
-    public void addMenuItems(Vendor v) {
+    public static HashMap<LinearLayout, MenuItem> addMenuItems(Vendor v, Context c, int height, LinearLayout menu) {
 
-
+        HashMap<LinearLayout, MenuItem> rows = new HashMap<>();
         ArrayList<MenuItem> items = v.getMenu();
 
         for (int i = 0; i < items.size(); i++) {
             MenuItem item = items.get(i);
-            LinearLayout menuItem = new LinearLayout(Menu.this);
+            LinearLayout menuItem = new LinearLayout(c);
             menuItem.setOrientation(LinearLayout.HORIZONTAL);
-            TextView itemName = new TextView(Menu.this);
+            TextView itemName = new TextView(c);
             itemName.setText(item.getName());
-            TextView itemDesc = new TextView(Menu.this);
-            TextView itemPrice = new TextView(Menu.this);
+            TextView itemDesc = new TextView(c);
+            TextView itemPrice = new TextView(c);
             itemPrice.setText(String.valueOf(item.getPrice()));
             itemDesc.setText(item.getDescription());
             LinearLayout.LayoutParams par = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
@@ -148,17 +150,18 @@ public class Menu extends AppCompatActivity {
             menuItem.addView(itemName);
             menuItem.addView(itemDesc);
             menuItem.addView(itemPrice);
-            View div = new View(Menu.this);
-            int height = (int) getResources().getDisplayMetrics().density * 2;
+            View div = new View(c);
+
             div.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
             div.setBackgroundColor(Color.parseColor("#000000"));
             div.setAlpha(0.25f);
 
             menu.addView(menuItem);
             menu.addView(div);
-
+            rows.put(menuItem, item);
 
         }
+        return rows;
     }
 
 

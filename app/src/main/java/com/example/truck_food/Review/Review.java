@@ -2,22 +2,27 @@ package com.example.truck_food.Review;
 
 import com.example.truck_food.User.Customer;
 
+import java.util.ArrayList;
+
 public class Review {
     String review;
     String customer;
     String vendor;
     int stars;
+    ArrayList<String> items;
 
     Review(){
     }
 
-    Review(String review, int stars, String customer, String vendor) {
+    Review(String review, int stars, String customer, String vendor, ArrayList<String> items) {
         this.review = review;
         this.stars = stars;
         this.customer = customer;
         this.vendor = vendor;
+        this.items = items;
     }
-
+    public ArrayList<String> getItems() { return items;}
+    public void setItems(ArrayList<String> items) { this.items = items; }
     public String getReview() {
         return review;
     }

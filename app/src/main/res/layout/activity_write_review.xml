@@ -4,32 +4,234 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:onClick="starClick"
     tools:context=".Review.WriteReview">
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/imageView"
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
-            android:layout_height="116dp"
-            android:transitionName="banner"
-            app:srcCompat="@drawable/hot_dog_with_mustard" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="116dp"
+                android:transitionName="banner"
+                app:srcCompat="@drawable/hot_dog_with_mustard" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Big John's Big Truck"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="32sp"
+                android:transitionName="title" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/divider13"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textView11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Big John's Big Truck"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="32sp"
-            android:transitionName="title" />
+            android:text="What did you order?"
+            android:textSize="24sp"
+            android:translationX="10dp" />
 
-    </RelativeLayout>
+        <ScrollView
+            android:layout_width="292dp"
+            android:layout_height="143dp"
+            android:translationX="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/items"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="10dp"
+                    android:orientation="vertical"></LinearLayout>
+
+                <Button
+                    android:id="@+id/button27"
+                    style="@style/Widget.Material3.Button.IconButton.Outlined"
+                    android:layout_width="268dp"
+                    android:layout_height="wrap_content"
+                    android:onClick="selectFromMenu"
+                    android:text="Select from menu..."
+                    android:translationX="10dp" />
+            </LinearLayout>
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Write your review!"
+            android:textSize="24sp"
+            android:translationX="10dp" />
+
+        <EditText
+            android:id="@+id/editTextText"
+            style="@style/Widget.AppCompat.Light.AutoCompleteTextView"
+            android:layout_width="381dp"
+            android:layout_height="149dp"
+            android:layout_gravity="top"
+            android:backgroundTintMode="src_atop"
+            android:clipToOutline="true"
+            android:ems="10"
+            android:gravity="top"
+            android:hint="..."
+            android:inputType="text"
+            android:translationX="10dp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="22dp" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="How many stars?"
+            android:textSize="24sp"
+            android:translationX="10dp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <LinearLayout
+            android:id="@+id/stars"
+            android:layout_width="383dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:translationX="5dp">
+
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="48dp"
+                android:layout_height="96dp"
+                android:layout_weight="1"
+                android:onClick="starClick"
+                android:tag="left"
+                app:srcCompat="@drawable/gold_starempty1" />
+
+            <ImageView
+                android:id="@+id/imageView12"
+                android:layout_width="48dp"
+                android:layout_height="96dp"
+                android:layout_weight="1"
+                android:onClick="starClick"
+                android:tag="right"
+                app:srcCompat="@drawable/gold_starempty2" />
+
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="48dp"
+                android:layout_height="96dp"
+                android:layout_weight="1"
+                android:onClick="starClick"
+                android:tag="left"
+                app:srcCompat="@drawable/gold_starempty1" />
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="48dp"
+                android:layout_height="96dp"
+                android:layout_weight="1"
+                android:onClick="starClick"
+                app:srcCompat="@drawable/gold_starempty2" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="48dp"
+                android:layout_height="96dp"
+                android:layout_weight="1"
+                android:onClick="starClick"
+                android:tag="left"
+                app:srcCompat="@drawable/gold_starempty1" />
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="48dp"
+                android:layout_height="96dp"
+                android:layout_weight="1"
+                android:onClick="starClick"
+                app:srcCompat="@drawable/gold_starempty2" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="48dp"
+                android:layout_height="96dp"
+                android:layout_weight="1"
+                android:onClick="starClick"
+                android:tag="left"
+                app:srcCompat="@drawable/gold_starempty1" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="48dp"
+                android:layout_height="96dp"
+                android:layout_weight="1"
+                android:onClick="starClick"
+                app:srcCompat="@drawable/gold_starempty2" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="48dp"
+                android:layout_height="96dp"
+                android:layout_weight="1"
+                android:onClick="starClick"
+                android:tag="left"
+                app:srcCompat="@drawable/gold_starempty1" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="48dp"
+                android:layout_height="96dp"
+                android:layout_weight="1"
+                android:onClick="starClick"
+                app:srcCompat="@drawable/gold_starempty2" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="52dp" />
+
+        <Button
+            android:id="@+id/button28"
+            android:layout_width="116dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#00BCD4"
+            android:onClick="postReview"
+            android:text="Post!"
+            android:textColor="#2B2B2B"
+            android:translationX="260dp" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

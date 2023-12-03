@@ -18,6 +18,9 @@
         android:theme="@style/Theme.TruckFood"
         tools:targetApi="31">
         <activity
+            android:name=".Review.SelectFromMenu"
+            android:exported="false" />
+        <activity
             android:name=".View.EditVendorInformation"
             android:exported="false" />
         <activity

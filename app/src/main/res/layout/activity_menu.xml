@@ -43,6 +43,12 @@
             </RelativeLayout>
 
 
+            <View
+                android:id="@+id/divider14"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="26dp" />
@@ -106,7 +112,7 @@
 
             <TextView
                 android:id="@+id/textView5"
-                android:layout_width="401dp"
+                android:layout_width="379dp"
                 android:layout_height="wrap_content"
                 android:minHeight="100dp"
                 android:text="blahblahblahblahblah"
@@ -142,7 +148,7 @@
 
             <LinearLayout
                 android:id="@+id/menu"
-                android:layout_width="401dp"
+                android:layout_width="382dp"
                 android:layout_height="wrap_content"
                 android:minHeight="100dp"
                 android:orientation="vertical"
