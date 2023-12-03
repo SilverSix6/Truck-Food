@@ -9,7 +9,7 @@ public abstract class User {
     long date;
 
     public User() {
-
+        super();
     }
 
     public User(String username, String email, String password){
