@@ -15,12 +15,14 @@ public class Vendor extends User implements Serializable {
     double latitude;
     double longitude;
 
+
     public Vendor(){
         super();
     }
 
     public Vendor(String username, String email, String password, String truckName, Image bannerImage, String description, ArrayList<MenuItem> menu, ArrayList<Review> reviews) {
         super(username, email, password);
+
         this.truckName = truckName;
         this.bannerImage = bannerImage;
         this.description = description;
@@ -32,9 +34,7 @@ public class Vendor extends User implements Serializable {
 
     public Vendor(String username, String email, String password, String truckName, Image bannerImage, String description, ArrayList<MenuItem> menu, double latitude, double longitude, ArrayList<Review> reviews) {
         super(username, email, password);
-        this.truckName = truckName;
-        this.bannerImage = bannerImage;
-        this.description = description;
+
         this.menu = menu;
         this.latitude = latitude;
         this.longitude = longitude;

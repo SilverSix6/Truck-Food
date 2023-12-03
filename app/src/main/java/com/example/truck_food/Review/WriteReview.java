@@ -18,10 +18,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.truck_food.Database.Database;
+import com.example.truck_food.Database.DatabaseCompleteListener;
 import com.example.truck_food.Image.Image;
 import com.example.truck_food.Login.LoginScreen;
 import com.example.truck_food.R;
 import com.example.truck_food.User.MenuItem;
+import com.example.truck_food.User.User;
 import com.example.truck_food.User.Vendor;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -109,6 +111,7 @@ public class WriteReview extends AppCompatActivity {
     }
     public void postReview(View view) {
 
+
         String reviewString = review.getText().toString();
         boolean valid = true;
         String fail = "";
@@ -134,8 +137,10 @@ public class WriteReview extends AppCompatActivity {
             if (reviews == null) {
                 reviews = new ArrayList<>();
             }
+
             reviews.add(r);
             vendor.setReviews(reviews);
+
             Database.updateVendor(uid, vendor);
             finish();
         }
@@ -153,9 +158,17 @@ public class WriteReview extends AppCompatActivity {
                 d.getChildren().forEach((element) -> {
                     if (String.valueOf(element.child("truckName").getValue()).equals(vendor.getTruckName())) {
                         uid = element.getKey().toString();
+                        vendor.setUsername(String.valueOf(element.child("username").getValue()));
+                        vendor.setPassword(String.valueOf(element.child("password").getValue()));
+                        vendor.setDate(Long.parseLong(String.valueOf(element.child("date").getValue())));
+                        vendor.setEmail(String.valueOf(element.child("email").getValue()));
+                        vendor.setLongitude(Double.parseDouble(String.valueOf(element.child("longitude").getValue())));
+                        vendor.setLatitude(Double.parseDouble(String.valueOf(element.child("latitude").getValue())));
                     }
 
                 });
+
+
             }
         }
     };

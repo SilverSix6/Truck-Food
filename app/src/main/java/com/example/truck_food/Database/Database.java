@@ -6,11 +6,13 @@ import androidx.annotation.NonNull;
 
 import com.example.truck_food.Review.Review;
 import com.example.truck_food.User.Customer;
+import com.example.truck_food.User.User;
 import com.example.truck_food.User.Vendor;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 
 import java.util.HashMap;
 
@@ -49,6 +51,7 @@ public class Database {
                 }
                 for(DataSnapshot vendorSnapshot: task.getResult().getChildren()){
                     vendors.put(vendorSnapshot.getKey(),vendorSnapshot.getValue(Vendor.class));
+
                 }
                 listener.databaseComplete();
             }
@@ -72,7 +75,7 @@ public class Database {
                     return;
                 }
                 for(DataSnapshot customerSnapshot: task.getResult().getChildren()){
-                    customers.put(task.getResult().getKey(), customerSnapshot.getValue(Customer.class));
+                    customers.put(customerSnapshot.getKey(), customerSnapshot.getValue(Customer.class));
                 }
                 listener.databaseComplete();
             }

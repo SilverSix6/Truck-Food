@@ -24,6 +24,7 @@ import android.widget.*;
 import com.example.truck_food.Database.DatabaseCompleteListener;
 import com.example.truck_food.Image.Image;
 import com.example.truck_food.Login.LoginScreen;
+import com.example.truck_food.User.User;
 import com.example.truck_food.R;
 import com.example.truck_food.User.Customer;
 import com.example.truck_food.User.MenuItem;
@@ -77,7 +78,7 @@ public class Menu extends AppCompatActivity {
             updateMenu();
         }
         else {
-            vendorId = "-NkS23qjMcP2ENhWiL9c";
+            vendorId = "-NkiCYg2IbbyKnabsLXv";
             vendors = Database.getVendors(new DatabaseCompleteListener() {
                 @Override
                 public void databaseComplete() {
