@@ -1,8 +1,9 @@
 package com.example.truck_food.User;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Customer extends User {
+public class Customer extends User implements Serializable {
 
     // Stores a list of vendor ids
     ArrayList<String> favorites;
@@ -10,9 +11,9 @@ public class Customer extends User {
     public Customer(){
         super();
     }
-    public Customer(String username, String email, String password){
+    public Customer(String username, String email, String password, ArrayList<String> favorites){
         super(username, email, password);
-        favorites = new ArrayList<>();
+        this.favorites = favorites;
     }
 
     public ArrayList<String> getFavorites() {

@@ -2,9 +2,10 @@ package com.example.truck_food.Review;
 
 import com.example.truck_food.User.Customer;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Review {
+public class Review implements Serializable {
     String review;
     String customer;
     String vendor;

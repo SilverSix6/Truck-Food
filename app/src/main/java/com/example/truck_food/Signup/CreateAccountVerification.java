@@ -103,7 +103,7 @@ public class CreateAccountVerification extends AppCompatActivity {
         } else {
             Database.addCustomer(new Customer(accountInformation.getString("Username"),
                     accountInformation.getString("Email"),
-                    accountInformation.getString("Password")));
+                    accountInformation.getString("Password"), null));
         }
 
         Intent intent = new Intent(this, MainLoginScreen.class);

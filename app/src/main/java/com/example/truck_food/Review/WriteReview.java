@@ -22,6 +22,7 @@ import com.example.truck_food.Database.DatabaseCompleteListener;
 import com.example.truck_food.Image.Image;
 import com.example.truck_food.Login.LoginScreen;
 import com.example.truck_food.R;
+import com.example.truck_food.User.Customer;
 import com.example.truck_food.User.MenuItem;
 import com.example.truck_food.User.User;
 import com.example.truck_food.User.Vendor;
@@ -44,7 +45,9 @@ public class WriteReview extends AppCompatActivity {
     EditText review;
     private DatabaseReference root;
     ArrayList<String> itemsOrdered;
+
     String uid;
+    Customer customer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +59,12 @@ public class WriteReview extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
+        customer = bundle.getSerializable("customer", Customer.class);
         vendor = bundle.getSerializable("vendor", Vendor.class);
         title = findViewById(R.id.textView2);
         bannerimg = findViewById(R.id.imageView);
-        uid = "fsdfs";
+
+        uid = bundle.getString("uid");
         items = findViewById(R.id.items);
         root = FirebaseDatabase.getInstance().getReference();
         stars = findViewById(R.id.stars);
@@ -72,7 +77,7 @@ public class WriteReview extends AppCompatActivity {
             bannerimg.setImageBitmap(b);
         }
         title.setText(vendor.getTruckName());
-        readValue();
+
     }
 
     public void starClick(View view) {
@@ -106,9 +111,7 @@ public class WriteReview extends AppCompatActivity {
         intent.putExtras(bundle);
         startActivityForResult(intent, 1);
     }
-    protected void readValue() {
-        root.get().addOnCompleteListener(onValuesFetched);
-    }
+
     public void postReview(View view) {
 
 
@@ -132,7 +135,7 @@ public class WriteReview extends AppCompatActivity {
             toast.show();
         } else {
 
-            Review r = new Review(reviewString, score, "tomer", vendor.getTruckName(), itemsOrdered);
+            Review r = new Review(reviewString, score, customer.getUsername(), vendor.getTruckName(), itemsOrdered);
             ArrayList<Review> reviews = vendor.getReviews();
             if (reviews == null) {
                 reviews = new ArrayList<>();
@@ -142,36 +145,15 @@ public class WriteReview extends AppCompatActivity {
             vendor.setReviews(reviews);
 
             Database.updateVendor(uid, vendor);
+            Intent intent = new Intent();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("vendor", vendor);
+            intent.putExtras(bundle);
+            setResult(RESULT_OK, intent);
             finish();
         }
     }
-    private OnCompleteListener<DataSnapshot> onValuesFetched = new OnCompleteListener<DataSnapshot>() {
-        @Override
-        public void onComplete(@NonNull Task<DataSnapshot> task) {
-            if (!task.isSuccessful()) {
-                Log.e("firebase", "Error getting data", task.getException());
-            } else {
-                Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                String path = "Firebase/Data/Vendor";
-                DataSnapshot d = task.getResult().child(path);
 
-                d.getChildren().forEach((element) -> {
-                    if (String.valueOf(element.child("truckName").getValue()).equals(vendor.getTruckName())) {
-                        uid = element.getKey().toString();
-                        vendor.setUsername(String.valueOf(element.child("username").getValue()));
-                        vendor.setPassword(String.valueOf(element.child("password").getValue()));
-                        vendor.setDate(Long.parseLong(String.valueOf(element.child("date").getValue())));
-                        vendor.setEmail(String.valueOf(element.child("email").getValue()));
-                        vendor.setLongitude(Double.parseDouble(String.valueOf(element.child("longitude").getValue())));
-                        vendor.setLatitude(Double.parseDouble(String.valueOf(element.child("latitude").getValue())));
-                    }
-
-                });
-
-
-            }
-        }
-    };
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

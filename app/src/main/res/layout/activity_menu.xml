@@ -54,45 +54,102 @@
                 android:layout_height="26dp" />
 
             <LinearLayout
-                android:layout_width="221dp"
-                android:layout_height="65dp"
-                android:orientation="horizontal"
-                android:translationX="10dp">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/imageView16"
+                <LinearLayout
+                    android:id="@+id/stars1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/gold_star_svg" />
+                    android:orientation="horizontal"
+                    android:translationX="10dp">
 
-                <ImageView
-                    android:id="@+id/imageView17"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/gold_star_svg" />
+                    <ImageView
+                        android:id="@+id/imageView13"
+                        android:layout_width="25dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:tag="left"
+                        app:srcCompat="@drawable/gold_star1" />
 
-                <ImageView
-                    android:id="@+id/imageView18"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/gold_star_svg" />
+                    <ImageView
+                        android:id="@+id/imageView14"
+                        android:layout_width="25dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/gold_star2" />
 
-                <ImageView
-                    android:id="@+id/imageView19"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/gold_star_svg" />
+                    <ImageView
+                        android:id="@+id/imageView15"
+                        android:layout_width="25dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:tag="left"
+                        app:srcCompat="@drawable/gold_star1" />
 
-                <ImageView
-                    android:id="@+id/imageView20"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/gold_star_svg" />
+                    <ImageView
+                        android:id="@+id/imageView16"
+                        android:layout_width="25dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/gold_star2" />
+
+                    <ImageView
+                        android:id="@+id/imageView17"
+                        android:layout_width="25dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:tag="left"
+                        app:srcCompat="@drawable/gold_star1" />
+
+                    <ImageView
+                        android:id="@+id/imageView18"
+                        android:layout_width="25dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/gold_star2" />
+
+                    <ImageView
+                        android:id="@+id/imageView19"
+                        android:layout_width="25dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:tag="left"
+                        app:srcCompat="@drawable/gold_star1" />
+
+                    <ImageView
+                        android:id="@+id/imageView20"
+                        android:layout_width="25dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/gold_star2" />
+
+                    <ImageView
+                        android:id="@+id/imageView26"
+                        android:layout_width="25dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:tag="left"
+                        app:srcCompat="@drawable/gold_star1" />
+
+                    <ImageView
+                        android:id="@+id/imageView27"
+                        android:layout_width="25dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/gold_star2" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/button32"
+                    android:layout_width="124dp"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="#00BCD4"
+                    android:onClick="addFavorite"
+                    android:text="Add to Favorites"
+                    android:translationX="20dp" />
+
             </LinearLayout>
 
             <TextView
@@ -208,8 +265,8 @@
 
                     <LinearLayout
                         android:id="@+id/linearLayout"
-                        android:layout_width="130dp"
-                        android:layout_height="39dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:translationX="5dp"
                         android:translationY="5dp"
@@ -217,39 +274,79 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
-                            android:id="@+id/imageView21"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            app:srcCompat="@drawable/gold_star_svg" />
-
-                        <ImageView
-                            android:id="@+id/imageView22"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            app:srcCompat="@drawable/gold_star_svg" />
-
-                        <ImageView
                             android:id="@+id/imageView23"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="13dp"
+                            android:layout_height="26dp"
                             android:layout_weight="1"
-                            app:srcCompat="@drawable/gold_star_svg" />
+                            android:tag="left"
+                            app:srcCompat="@drawable/gold_star1" />
 
                         <ImageView
                             android:id="@+id/imageView24"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="13dp"
+                            android:layout_height="26dp"
                             android:layout_weight="1"
-                            app:srcCompat="@drawable/gold_star_svg" />
+                            app:srcCompat="@drawable/gold_star2" />
+
+                        <ImageView
+                            android:id="@+id/imageView21"
+                            android:layout_width="13dp"
+                            android:layout_height="26dp"
+                            android:layout_weight="1"
+                            android:tag="left"
+                            app:srcCompat="@drawable/gold_star1" />
+
+                        <ImageView
+                            android:id="@+id/imageView22"
+                            android:layout_width="13dp"
+                            android:layout_height="26dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/gold_star2" />
 
                         <ImageView
                             android:id="@+id/imageView25"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="13dp"
+                            android:layout_height="26dp"
                             android:layout_weight="1"
-                            app:srcCompat="@drawable/gold_star_svg" />
+                            android:tag="left"
+                            app:srcCompat="@drawable/gold_star1" />
+
+                        <ImageView
+                            android:id="@+id/imageView28"
+                            android:layout_width="13dp"
+                            android:layout_height="26dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/gold_star2" />
+
+                        <ImageView
+                            android:id="@+id/imageView29"
+                            android:layout_width="13dp"
+                            android:layout_height="26dp"
+                            android:layout_weight="1"
+                            android:tag="left"
+                            app:srcCompat="@drawable/gold_star1" />
+
+                        <ImageView
+                            android:id="@+id/imageView30"
+                            android:layout_width="13dp"
+                            android:layout_height="26dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/gold_star2" />
+
+                        <ImageView
+                            android:id="@+id/imageView31"
+                            android:layout_width="13dp"
+                            android:layout_height="26dp"
+                            android:layout_weight="1"
+                            android:tag="left"
+                            app:srcCompat="@drawable/gold_star1" />
+
+                        <ImageView
+                            android:id="@+id/imageView32"
+                            android:layout_width="13dp"
+                            android:layout_height="26dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/gold_star2" />
                     </LinearLayout>
 
                     <TextView
@@ -257,7 +354,7 @@
                         android:layout_width="145dp"
                         android:layout_height="62dp"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginTop="5dp"
                         android:layout_weight="1"
                         android:text="this item is cool and it tasted good hooray"
                         android:textSize="17sp"

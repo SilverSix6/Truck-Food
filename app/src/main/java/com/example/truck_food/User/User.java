@@ -1,8 +1,9 @@
 package com.example.truck_food.User;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public abstract class User {
+public abstract class User implements Serializable {
     String username;
     String email;
     String password;

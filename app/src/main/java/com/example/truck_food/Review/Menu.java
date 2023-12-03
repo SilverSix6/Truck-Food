@@ -54,7 +54,14 @@ public class Menu extends AppCompatActivity {
     Vendor vendor;
     HashMap<String, Vendor> vendors;
     ImageView bannerimg;
+    Customer customer;
+    HashMap<String, Customer> customers;
+    String uid;
+    LinearLayout stars2;
+
     int count;
+    String customerId;
+    LinearLayout stars1;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,15 +77,20 @@ public class Menu extends AppCompatActivity {
         every = findViewById(R.id.everything);
         about = findViewById(R.id.textView5);
         bannerimg = findViewById(R.id.imageView7);
+        stars1 = findViewById(R.id.stars1);
+        stars2 = findViewById(R.id.linearLayout);
         menu = findViewById(R.id.menu);
+        uid = "";
         count = 0;
         if (bundle != null) {
+            customerId = LoginScreen.accountId;
             Bundle b = bundle.getBundle("Bundle");
             vendor = b.getSerializable("Vendor", Vendor.class);
             updateMenu();
         }
         else {
-            vendorId = "-NkiCYg2IbbyKnabsLXv";
+            vendorId = "-NkiiwRA60hVkcwMRC8l";
+            customerId = "-NkiUctovti9__4V-Dqt";
             vendors = Database.getVendors(new DatabaseCompleteListener() {
                 @Override
                 public void databaseComplete() {
@@ -88,16 +100,45 @@ public class Menu extends AppCompatActivity {
             });
 
         }
+    customers = Database.getCustomers(new DatabaseCompleteListener() {
+        @Override
+        public void databaseComplete() {
+            customer = customers.get(customerId);
+            readValue();
+        }
+    });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        vendor = data.getSerializableExtra("vendor", Vendor.class);
+        updateStars();
+
+    }
+
+    public void addFavorite(View view) {
+        ArrayList<String> favs = customer.getFavorites();
+        if (favs == null) {
+            favs = new ArrayList<>();
+        }
+        favs.add(vendor.getTruckName());
+        customer.setFavorites(favs);
+        Database.updateCustomer(customerId, customer);
+        Toast toast = Toast.makeText(this, "Favorited!", Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     public void createReview(View view) {
        Intent intent = new Intent(this, WriteReview.class);
        Bundle bundle = new Bundle();
        bundle.putSerializable("vendor", vendor);
-
+       bundle.putSerializable("customer", customer);
+       bundle.putString("uid", uid);
        intent.putExtras(bundle);
-       startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this, Pair.create(bannerimg, "banner"), Pair.create(title, "title")).toBundle());
+       startActivityForResult(intent, 1, ActivityOptions.makeSceneTransitionAnimation(this, Pair.create(bannerimg, "banner"), Pair.create(title, "title")).toBundle());
     }
 
     public void updateMenu() {
@@ -110,14 +151,51 @@ public class Menu extends AppCompatActivity {
             Bitmap b = banner.getBitmap();
             bannerimg.setImageBitmap(b);
         }
+        updateStars();
     }
 
-/*
+
     protected void readValue() {
         root.get().addOnCompleteListener(onValuesFetched);
     }
 
- */
+    protected void updateStars() {
+        int sum = 0;
+        int score = 0;
+
+        ArrayList<Review> reviews = vendor.getReviews();
+        if (reviews != null) {
+            for (int i = 0; i < reviews.size(); i++) {
+                sum += reviews.get(i).getStars();
+            }
+            double avg = sum / reviews.size();
+            score = (int) Math.round(avg);
+            setStars(score, stars1);
+            Review recent = reviews.get(reviews.size() - 1);
+            score = recent.getStars();
+            setStars(score, stars2);
+            TextView reviewSample = findViewById(R.id.textView9);
+            reviewSample.setText(recent.getReview());
+        }
+    }
+public void setStars(int score, LinearLayout stars1) {
+        ImageView img;
+    for (int i = score - 1; i >= 0; i--) {
+        img = (ImageView) stars1.getChildAt(i);
+        if (String.valueOf(img.getTag()).equals("left"))
+            img.setImageResource(R.drawable.gold_star1);
+        else
+            img.setImageResource(R.drawable.gold_star2);
+    }
+    for (int i = score; i < stars1.getChildCount(); i++) {
+        img = (ImageView) stars1.getChildAt(i);
+        if (String.valueOf(img.getTag()).equals("left"))
+            img.setImageResource(R.drawable.gold_starempty1);
+        else
+            img.setImageResource(R.drawable.gold_starempty2);
+    }
+}
+
     public static HashMap<LinearLayout, MenuItem> addMenuItems(Vendor v, Context c, int height, LinearLayout menu) {
 
         HashMap<LinearLayout, MenuItem> rows = new HashMap<>();
@@ -166,6 +244,8 @@ public class Menu extends AppCompatActivity {
     }
 
 
+
+
 /*
     private OnCompleteListener<DataSnapshot> onValuesFetched = new OnCompleteListener<DataSnapshot>() {
         @Override
@@ -174,56 +254,62 @@ public class Menu extends AppCompatActivity {
                 Log.e("firebase", "Error getting data", task.getException());
             } else {
                 Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                String path = "Firebase/Data/Vendor/" + vendorId;
+                String path = "Firebase/Data/Customer";
                 DataSnapshot d = task.getResult().child(path);
-                titleString = String.valueOf(d.child("truckName").getValue());
-                String aboutString = String.valueOf(d.child("description").getValue());
-
-                title.setText(titleString);
-                about.setText(aboutString);
 
 
-                d.child("menu").getChildren().forEach((element) -> {
-                    LinearLayout menuItem = new LinearLayout(Menu.this);
-                    menuItem.setOrientation(LinearLayout.HORIZONTAL);
-                    TextView itemName = new TextView(Menu.this);
-                    itemName.setText(String.valueOf(element.child("name").getValue()));
-                    TextView itemDesc = new TextView(Menu.this);
-                    TextView itemPrice = new TextView(Menu.this);
-                    itemPrice.setText(String.valueOf(element.child("price").getValue()));
-                    itemDesc.setText(String.valueOf(element.child("description").getValue()));
-                    LinearLayout.LayoutParams par = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
-                    LinearLayout.LayoutParams par2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 0.8f);
-                    LinearLayout.LayoutParams par3 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.2f);
 
-                    itemName.setLayoutParams(par);
-                    itemDesc.setLayoutParams(par2);
-                    itemPrice.setLayoutParams(par3);
+                d.getChildren().forEach((element) -> {
 
-                    itemName.setTextSize(24);
-                    itemDesc.setTextSize(18);
-                    itemPrice.setTextSize(18);
-
-                    menuItem.setMinimumHeight(100);
-                    menuItem.setPadding(0,20,0,20);
-
-                    menuItem.addView(itemName);
-                    menuItem.addView(itemDesc);
-                    menuItem.addView(itemPrice);
-                    View div = new View(Menu.this);
-                    int height =  (int)getResources().getDisplayMetrics().density * 2;
-                    div.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
-                    div.setBackgroundColor(Color.parseColor("#000000"));
-                    div.setAlpha(0.25f);
-
-                    menu.addView(menuItem);
-
-                    menu.addView(div);
                 });
-                every.setVisibility(View.VISIBLE);
+
             }
         }
     };
+*/
+private OnCompleteListener<DataSnapshot> onValuesFetched = new OnCompleteListener<DataSnapshot>() {
+    @Override
+    public void onComplete(@NonNull Task<DataSnapshot> task) {
+        if (!task.isSuccessful()) {
+            Log.e("firebase", "Error getting data", task.getException());
+        } else {
+            Log.d("firebase", String.valueOf(task.getResult().getValue()));
+            String path = "Firebase/Data/Vendor";
+            DataSnapshot d = task.getResult().child(path);
 
- */
+            d.getChildren().forEach((element) -> {
+                if (String.valueOf(element.child("truckName").getValue()).equals(vendor.getTruckName())) {
+                    uid = element.getKey().toString();
+                    vendor.setUsername(String.valueOf(element.child("username").getValue()));
+                    vendor.setPassword(String.valueOf(element.child("password").getValue()));
+                    vendor.setDate(Long.parseLong(String.valueOf(element.child("date").getValue())));
+                    vendor.setEmail(String.valueOf(element.child("email").getValue()));
+                    vendor.setLongitude(Double.parseDouble(String.valueOf(element.child("longitude").getValue())));
+                    vendor.setLatitude(Double.parseDouble(String.valueOf(element.child("latitude").getValue())));
+                }
+
+            });
+            d = task.getResult().child("Firebase/Data/Customer");
+            d.getChildren().forEach((element) -> {
+                if (String.valueOf(element.child("username").getValue()).equals(customer.getUsername())) {
+                    Object o = element.child("date").getValue();
+                    String temp = "";
+                    Long l = 0l;
+                    if (o == null)
+                        customer.setDate(l);
+                    else {
+                        temp = String.valueOf(o);
+                        customer.setDate(Long.parseLong(temp));
+                    }
+                    customer.setUsername(String.valueOf(element.child("username").getValue()));
+                    customer.setPassword(String.valueOf(element.child("password").getValue()));
+                    customer.setEmail(String.valueOf(element.child("email").getValue()));
+                }
+
+            });
+
+        }
+    }
+};
+
 }
