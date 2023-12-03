@@ -142,15 +142,12 @@ public class UpdateLocation extends AppCompatActivity implements OnMapReadyCallb
         }
     }
 
-    public void confirm(View v){
+    public void confirm(View v) {
         // Checks if user first enters a valid location (i.e not outside of Kelowna)
         // These values are approximations I got from Google Maps so they may not be too accurate
         // Upon testing, it actually goes up to a little bit of West Kelowna so that's cool.
-        LatLng northeast = new LatLng(50.02,-119.374);
+        LatLng northeast = new LatLng(50.02, -119.374);
         LatLng southwest = new LatLng(49.77, -119.589);
-
-        // Test vendor
-        Toast.makeText(this, "vendor lat is: " + loggedInVendor.getLatitude() + "\nvendor long is: " + loggedInVendor.getLongitude() + "vendorId: " + vendorId, Toast.LENGTH_SHORT).show();
 
         // Create a LatLngBounds object
         // This is the boundary of Kelowna
@@ -158,7 +155,7 @@ public class UpdateLocation extends AppCompatActivity implements OnMapReadyCallb
 
         // If the user IS NOT within Kelowna
         // Set the location somewhere in Downtown and print a toast message
-        if(!kelownaBounds.contains(userLocation)){
+        if (!kelownaBounds.contains(userLocation)) {
             // Again these are rough estimations so it's somewhere in Downtown Kelowna
             LatLng downtownKelowna = new LatLng(49.88, -119.493);
             mMap.clear();
@@ -169,10 +166,25 @@ public class UpdateLocation extends AppCompatActivity implements OnMapReadyCallb
             Toast.makeText(this, "Your location is too far! Please stay within the Kelowna area and try again.", Toast.LENGTH_LONG).show();
         }
         //Otherwise, update the vendor location in Firebase
-        else{
-                loggedInVendor.setLatitude(userLocation.latitude);
-                loggedInVendor.setLongitude(userLocation.longitude);
-                Database.updateVendor(vendorId, loggedInVendor);
+        else {
+            // Create an AlertDialog.Builder instance
+            new AlertDialog.Builder(this)
+                    .setTitle("Confirmation")
+                    .setMessage("Do you want to confirm the location?")
+                    // If the user confirms, update the location and finish() the activity
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            loggedInVendor.setLatitude(userLocation.latitude);
+                            loggedInVendor.setLongitude(userLocation.longitude);
+                            Database.updateVendor(vendorId, loggedInVendor);
+                            finish();
+                        }
+                    })
+                    // If the user cancels, just close the dialog
+                    .setNegativeButton(android.R.string.no, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+
         }
     }
 
