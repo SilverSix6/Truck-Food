@@ -151,7 +151,7 @@ public class VendorListView extends AppCompatActivity {
     }
 
     public void mapView(View view) {
-        Intent intent = new Intent(this, ViewVendorLocations.class);
+        Intent intent = new Intent(this, ViewAllActiveVendors.class);
         this.startActivity(intent);
         finish();
     }

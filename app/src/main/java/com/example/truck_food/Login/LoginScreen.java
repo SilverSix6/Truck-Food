@@ -17,9 +17,6 @@ import com.example.truck_food.User.User;
 import com.example.truck_food.User.Vendor;
 import com.example.truck_food.View.VendorAdminPage;
 import com.example.truck_food.View.VendorListView;
-import com.example.truck_food.View.ViewVendorLocations;
-
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;

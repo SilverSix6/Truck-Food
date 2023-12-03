@@ -18,6 +18,9 @@
         android:theme="@style/Theme.TruckFood"
         tools:targetApi="31">
         <activity
+            android:name=".View.ViewAllActiveVendors"
+            android:exported="false" />
+        <activity
             android:name=".Review.SelectFromMenu"
             android:exported="false" />
         <activity
@@ -51,10 +54,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
 
-        <activity
-            android:name=".View.ViewVendorLocations"
-            android:exported="false"
-            android:label="@string/title_activity_view_vendor_locations" />
         <activity
             android:name=".Location.TestLocation"
             android:exported="false"
