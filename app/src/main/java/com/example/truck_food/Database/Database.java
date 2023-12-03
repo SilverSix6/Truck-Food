@@ -48,9 +48,7 @@ public class Database {
                     return;
                 }
                 for(DataSnapshot vendorSnapshot: task.getResult().getChildren()){
-
                     vendors.put(vendorSnapshot.getKey(),vendorSnapshot.getValue(Vendor.class));
-
                 }
                 listener.databaseComplete();
             }
@@ -75,8 +73,8 @@ public class Database {
                 }
                 for(DataSnapshot customerSnapshot: task.getResult().getChildren()){
                     customers.put(task.getResult().getKey(), customerSnapshot.getValue(Customer.class));
-                    listener.databaseComplete();
                 }
+                listener.databaseComplete();
             }
         });
 
@@ -94,10 +92,8 @@ public class Database {
                 }
                 customer[0] = (Customer) task.getResult().getValue();
                 listener.databaseComplete();
-
             }
         });
-
         return customer[0];
     }
 
@@ -112,10 +108,8 @@ public class Database {
                 }
                 vendor[0] = (Vendor) task.getResult().getValue();
                 listener.databaseComplete();
-
             }
         });
-
         return vendor[0];
     }
 

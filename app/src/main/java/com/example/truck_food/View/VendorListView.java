@@ -26,7 +26,10 @@ import com.example.truck_food.User.Vendor;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Deque;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -35,6 +38,7 @@ public class VendorListView extends AppCompatActivity {
 
     HashMap<String,Vendor> vendors;
     LinearLayout scrollView;
+    LinkedList<Map.Entry<String, Vendor>> vendorsOrdered;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,20 +51,22 @@ public class VendorListView extends AppCompatActivity {
             @Override
             public void databaseComplete() {
                 // Update screen
-                updateList(new ArrayList<>(vendors.values()));
+                vendorsOrdered = new LinkedList<>(vendors.entrySet());
+                updateList();
             }
         });
     }
 
-    public void updateList(ArrayList<Vendor> vendorList){
-        for (Vendor vendor: vendorList){
+    public void updateList(){
+        scrollView.removeAllViews();
+        for (Map.Entry<String, Vendor> entry: vendorsOrdered){
             RelativeLayout layout = new RelativeLayout(this);
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.WRAP_CONTENT));
             layout.setLayoutParams(params);
 
 
             Button button = new Button(this);
-            button.setText(vendor.getTruckName());
+            button.setText(entry.getValue().getTruckName());
             params = new RelativeLayout.LayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.WRAP_CONTENT));
             button.setLayoutParams(params);
             layout.addView(button);
@@ -68,7 +74,7 @@ public class VendorListView extends AppCompatActivity {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    openVendorProfile(vendor);
+                    openVendorProfile(entry.getValue());
                 }
             });
 
@@ -99,46 +105,10 @@ public class VendorListView extends AppCompatActivity {
                     Bundle bundle = result.getData().getExtras();
                     assert bundle != null;
                     // Perform sort
-                    sortVendors(bundle.getString("Search", ""), bundle.getString("Options", ""), bundle.getString("Max Distance", String.valueOf(-1)), bundle.getBoolean("Favorites", false));
+                    vendorsOrdered = SortVendors.sortVendors(vendors.entrySet(), bundle.getString("Search", ""), bundle.getString("Options", ""), bundle.getString("Max Distance", String.valueOf(-1)), bundle.getBoolean("Favorites", false));
+                    updateList();
                 }
             });
-
-    public void sortVendors(String search, String orderType, String distance, boolean favorites) {
-        /*
-        Stream<Vendor> vendorStream = vendors.values().stream();
-
-        // Filter vendor name
-        if (!Objects.equals(search, "")) {
-            vendorStream = vendorStream.filter(item -> item.getTruckName().contains(search));
-        }
-
-        // Filter favorites
-
-
-        // Sort by type
-        switch (orderType) {
-            case "Distance Ascending":
-                vendorStream = vendorStream.sorted(Comparator.comparing(Ven))
-                break;
-            case "Distance Descending":
-                break;
-            case "New to the App":
-                vendorStream = vendorStream.sorted(Comparator.comparing())
-                break;
-            default:
-
-        }
-
-
-        // Filter Distance
-        if (!Objects.equals(distance, "")) {
-            vendorStream = vendorStream.filter(item -> Maps.distanceLatLong(item.getLatitude(), item.getLongitude(), 0, 0) < Double.parseDouble(distance));
-        }
-
-        updateList(new ArrayList<>(vendorStream.collect(Collectors.toList())));
-
-         */
-    }
 
     public void logout(View view) {
         Intent intent = new Intent(this, MainLoginScreen.class);
@@ -157,6 +127,7 @@ public class VendorListView extends AppCompatActivity {
     }
 
     public void favorites(View view) {
-        sortVendors("","","",true);
+        vendorsOrdered = SortVendors.sortVendors(vendors.entrySet(),"","","",true);
+        updateList();
     }
 }

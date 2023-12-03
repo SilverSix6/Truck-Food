@@ -6,6 +6,7 @@ public abstract class User {
     String username;
     String email;
     String password;
+    long date;
 
     public User() {
 
@@ -15,6 +16,7 @@ public abstract class User {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.date = System.currentTimeMillis();
     }
 
     public String getUsername() {
@@ -40,4 +42,13 @@ public abstract class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
+    }
+
 }
