@@ -17,7 +17,6 @@ import com.example.truck_food.Database.DatabaseCompleteListener;
 import com.example.truck_food.R;
 import com.example.truck_food.User.Vendor;
 import com.example.truck_food.databinding.ActivityViewAllActiveVendorsBinding;
-import com.example.truck_food.databinding.ActivityViewVendorLocationsBinding;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
