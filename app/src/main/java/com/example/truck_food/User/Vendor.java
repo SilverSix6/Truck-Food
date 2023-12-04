@@ -105,7 +105,17 @@ public class Vendor extends User implements Serializable {
         reviews.remove(review);
     }
 
+    public double getAverageReview() {
+        double sum = 0;
+        if (reviews != null) {
+            for(Review review: reviews) {
+                sum += review.getStars();
+            }
 
+            return sum / (double)reviews.size();
+        }
+        return 0;
+    }
 
     @Override
     public String toString() {

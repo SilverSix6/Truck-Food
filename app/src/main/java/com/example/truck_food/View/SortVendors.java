@@ -106,6 +106,9 @@ public class SortVendors extends AppCompatActivity {
             case "New to the App":
                 vendorStream = vendorStream.sorted((a, b) -> Math.toIntExact(b.getValue().getDate() - a.getValue().getDate()));
                 break;
+            case "Top Reviews":
+                vendorStream = vendorStream.sorted((a, b) -> (int) (b.getValue().getAverageReview() - a.getValue().getAverageReview()));
+                break;
             default:
 
         }

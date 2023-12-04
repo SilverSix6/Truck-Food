@@ -6,6 +6,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +25,8 @@ import com.example.truck_food.Review.Menu;
 import com.example.truck_food.User.Customer;
 import com.example.truck_food.User.Vendor;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Deque;
@@ -57,6 +60,7 @@ public class VendorListView extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("SetTextI18n")
     public void updateList(){
         scrollView.removeAllViews();
         for (Map.Entry<String, Vendor> entry: vendorsOrdered){
@@ -66,7 +70,13 @@ public class VendorListView extends AppCompatActivity {
 
 
             Button button = new Button(this);
-            button.setText(entry.getValue().getTruckName());
+            if (entry.getValue().getReviews() != null) {
+                BigDecimal db = BigDecimal.valueOf(entry.getValue().getAverageReview() / 2).setScale(1, RoundingMode.HALF_UP);
+                button.setText(entry.getValue().getTruckName() + "\n" + db.toString() + " ★");
+            } else {
+                button.setText(entry.getValue().getTruckName() + "\n0 ★");
+            }
+
             params = new RelativeLayout.LayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.WRAP_CONTENT));
             button.setLayoutParams(params);
             layout.addView(button);
