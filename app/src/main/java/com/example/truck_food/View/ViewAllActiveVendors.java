@@ -78,9 +78,11 @@ public class ViewAllActiveVendors extends AppCompatActivity implements OnMapRead
         for (Vendor vendor: vendors.values()){
             double latitude = vendor.getLatitude();
             double longitude = vendor.getLongitude();
-            String truckName = vendor.getTruckName();
-            LatLng downtown = new LatLng(latitude, longitude);
-            mMap.addMarker(new MarkerOptions().position(downtown).title(truckName));
+            if(latitude != 0 & longitude != 0){
+                String truckName = vendor.getTruckName();
+                LatLng downtown = new LatLng(latitude, longitude);
+                mMap.addMarker(new MarkerOptions().position(downtown).title(truckName));
+            }
         }
     }
 
