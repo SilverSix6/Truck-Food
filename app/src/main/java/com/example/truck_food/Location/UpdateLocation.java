@@ -81,7 +81,7 @@ public class UpdateLocation extends AppCompatActivity implements OnMapReadyCallb
         LatLng kelowna = new LatLng(49.8877, -119.4961);
 
         // Move the camera to Kelowna and zoom in
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(kelowna, 10.0f));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(kelowna, 12.0f));
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
         // Asks the user for current location
@@ -133,7 +133,7 @@ public class UpdateLocation extends AppCompatActivity implements OnMapReadyCallb
                         LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
                         mMap.clear();
                         mMap.addMarker(new MarkerOptions().position(currentLocation));
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 10.0f));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 14.0f));
                         // Sets the user's location to the current one
                         userLocation = currentLocation;
                     }
@@ -177,6 +177,7 @@ public class UpdateLocation extends AppCompatActivity implements OnMapReadyCallb
                             loggedInVendor.setLatitude(userLocation.latitude);
                             loggedInVendor.setLongitude(userLocation.longitude);
                             Database.updateVendor(vendorId, loggedInVendor);
+                            Toast.makeText(UpdateLocation.this, "Your location was updated successfully!", Toast.LENGTH_SHORT).show();
                             finish();
                         }
                     })
