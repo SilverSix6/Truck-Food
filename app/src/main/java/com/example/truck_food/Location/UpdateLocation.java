@@ -24,6 +24,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -132,10 +133,23 @@ public class UpdateLocation extends AppCompatActivity implements OnMapReadyCallb
                     if (location != null) {
                         LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
                         mMap.clear();
-                        mMap.addMarker(new MarkerOptions().position(currentLocation));
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 10.0f));
-                        // Sets the user's location to the current one
-                        userLocation = currentLocation;
+
+                        //Check if user's current location is in Kelowna boundary
+                        LatLng northeast = new LatLng(50.02,-119.374);
+                        LatLng southwest = new LatLng(49.77, -119.589);
+                        LatLngBounds kelownaBounds = new LatLngBounds(southwest, northeast);
+
+                        if(!kelownaBounds.contains(currentLocation)){
+                            //Move camera to downtown Kelowna
+                            LatLng downtownKelowna = new LatLng(49.885, -119.493);
+                            mMap.addMarker(new MarkerOptions().position(downtownKelowna));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(downtownKelowna, 15));
+                        }else{
+                            mMap.addMarker(new MarkerOptions().position(currentLocation));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 10.0f));
+                            // Sets the user's location to the current one
+                            userLocation = currentLocation;
+                        }
                     }
                 }
             });
