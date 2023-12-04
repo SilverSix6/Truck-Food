@@ -91,7 +91,8 @@ public class SortVendors extends AppCompatActivity {
         if (favorites) {
             ArrayList<String> favList = ((Customer) LoginScreen.account).getFavorites();
             if (favList != null)
-                vendorStream = vendorStream.filter(e -> favList.contains(e.getKey()));
+                vendorStream = vendorStream.filter(e -> favList.contains(e.getValue().getTruckName()));
+            return vendorStream.collect(Collectors.toCollection(LinkedList::new));
         }
 
         // Sort by type

@@ -133,7 +133,6 @@ public class VendorListView extends AppCompatActivity {
     public void mapView(View view) {
         Intent intent = new Intent(this, ViewAllActiveVendors.class);
         this.startActivity(intent);
-        finish();
     }
 
     public void favorites(View view) {

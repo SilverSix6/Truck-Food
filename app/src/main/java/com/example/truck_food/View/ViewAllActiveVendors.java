@@ -123,20 +123,7 @@ public class ViewAllActiveVendors extends AppCompatActivity implements OnMapRead
     }
 
     public void mainMenu(View v) {
-        // Create an AlertDialog.Builder instance
-        new AlertDialog.Builder(this)
-                .setTitle("Confirmation")
-                .setMessage("Do you want to go back to the main menu?")
-                // If the user confirms, finish the activity
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                })
-                // If the user cancels, just close the dialog
-                .setNegativeButton(android.R.string.no, null)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
+        finish();
     }
 
 }

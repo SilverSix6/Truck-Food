@@ -124,10 +124,15 @@ public class Menu extends AppCompatActivity {
         if (favs == null) {
             favs = new ArrayList<>();
         }
-        favs.add(vendor.getTruckName());
-        customer.setFavorites(favs);
-        Database.updateCustomer(customerId, customer);
-        Toast toast = Toast.makeText(this, "Favorited!", Toast.LENGTH_SHORT);
+        if(!favs.contains(vendor.getTruckName())){
+            favs.add(vendor.getTruckName());
+            customer.setFavorites(favs);
+            Database.updateCustomer(customerId, customer);
+            Toast toast = Toast.makeText(this, "Favorited!", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
+        Toast toast = Toast.makeText(this, "This truck is already favorited!", Toast.LENGTH_SHORT);
         toast.show();
     }
 
