@@ -207,7 +207,7 @@
                 android:id="@+id/menu"
                 android:layout_width="382dp"
                 android:layout_height="wrap_content"
-                android:minHeight="100dp"
+                android:minHeight="75dp"
                 android:orientation="vertical"
                 android:translationX="10dp" />
 
@@ -418,6 +418,19 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="197dp"
                 android:background="?android:attr/listDivider" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="11dp" />
+
+            <Button
+                android:id="@+id/button31"
+                android:layout_width="133dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#00BCD4"
+                android:onClick="finish"
+                android:text="Back to Vendors"
+                android:translationX="10dp" />
 
 
         </LinearLayout>

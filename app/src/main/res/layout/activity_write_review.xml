@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,9 +46,13 @@
             android:layout_height="1dp"
             android:background="?android:attr/listDivider" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="30dp" />
+        <Button
+            android:id="@+id/button34"
+            android:layout_width="57dp"
+            android:layout_height="48dp"
+            android:onClick="finish"
+            android:text="X"
+            android:translationX="330dp" />
 
         <TextView
             android:id="@+id/textView11"
@@ -60,7 +64,7 @@
 
         <ScrollView
             android:layout_width="292dp"
-            android:layout_height="143dp"
+            android:layout_height="133dp"
             android:translationX="10dp">
 
             <LinearLayout
@@ -220,7 +224,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="52dp" />
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/button28"
@@ -230,7 +234,7 @@
             android:onClick="postReview"
             android:text="Post!"
             android:textColor="#2B2B2B"
-            android:translationX="260dp" />
+            android:translationX="270dp" />
 
     </LinearLayout>
 

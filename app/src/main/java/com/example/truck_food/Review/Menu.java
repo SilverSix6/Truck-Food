@@ -62,12 +62,13 @@ public class Menu extends AppCompatActivity {
     int count;
     String customerId;
     LinearLayout stars1;
+    boolean b;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
         getWindow().setExitTransition(new Slide());
-
+        getWindow().setEnterTransition(new Slide());
         setContentView(R.layout.activity_menu);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -79,17 +80,19 @@ public class Menu extends AppCompatActivity {
         bannerimg = findViewById(R.id.imageView7);
         stars1 = findViewById(R.id.stars1);
         stars2 = findViewById(R.id.linearLayout);
+        b = false;
         menu = findViewById(R.id.menu);
         uid = "";
         count = 0;
         if (bundle != null) {
+            b = true;
             customerId = LoginScreen.accountId;
             Bundle b = bundle.getBundle("Bundle");
             vendor = b.getSerializable("Vendor", Vendor.class);
             updateMenu();
         }
         else {
-            vendorId = "-NkiiwRA60hVkcwMRC8l";
+            vendorId = "-Nkl6TMpR_Q7cVjrK39T";
             customerId = "-NkiUctovti9__4V-Dqt";
             vendors = Database.getVendors(new DatabaseCompleteListener() {
                 @Override
@@ -199,6 +202,11 @@ public void setStars(int score, LinearLayout stars1) {
         else
             img.setImageResource(R.drawable.gold_starempty2);
     }
+}
+
+public void finish(View view) {
+        if (b)
+            finish();
 }
 
     public static HashMap<LinearLayout, MenuItem> addMenuItems(Vendor v, Context c, int height, LinearLayout menu) {

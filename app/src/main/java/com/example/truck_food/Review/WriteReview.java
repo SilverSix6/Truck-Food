@@ -54,6 +54,7 @@ public class WriteReview extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
         getWindow().setEnterTransition(new Slide());
+        getWindow().setExitTransition(new Slide());
 
         setContentView(R.layout.activity_write_review);
 
@@ -78,6 +79,15 @@ public class WriteReview extends AppCompatActivity {
         }
         title.setText(vendor.getTruckName());
 
+    }
+
+    public void finish(View view) {
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("vendor", vendor);
+        intent.putExtras(bundle);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     public void starClick(View view) {
